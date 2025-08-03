@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Aeternum - Tu Biblioteca Digital</title>
+</head>
+
+<body>
+    <div class="header" id="navbar">
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/img/aeternum_logo.png" alt="" placeholder="logo">
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Catálogo</a></li>
+                    <li><a href="#footer">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="user-icon">
+                <a href="login.php"><i class='bx bx-user-circle'></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="hero">
+        <div>
+            <h1>Bienvenid@ a Nuestra Biblioteca Aeternum</h1>
+            <p>Aquí puedes encontrar una página que te ayudará a explorar los mundos fantásticos de la literatura y el
+                conocimiento. ¡Te invitamos a sumergirte en nuestros catálogos y disfrutar de tus lecturas!</p>
+            <a href="#" class="cta-button">Únete ahora</a><br><br><br>
+            <img src="assets/img/img-home.jpg" alt="imagen" class="img1">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2><span>*</span><br>¿Qué ofrece nuestra página?</h2>
+        <p>Disfruta de préstamos digitales con fechas flexibles, crea tu lista de deseos, deja reseñas y recibe
+            recomendaciones personalizadas según tus lecturas.</p>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Variedad de Libros</h3>
+                <p>Explora un amplio catálogo que incluye novelas, ensayos, poesía y mucho más.</p>
+            </div>
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Préstamos Flexibles</h3>
+                <p>Disfruta de tus lecturas al ritmo que prefieras con plazos ajustables.</p>
+            </div>
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Reseñas de la Comunidad</h3>
+                <p>Lee las opiniones de otros lectores y comparte tus propias experiencias literarias.</p>
+            </div>
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Listas y Favoritos</h3>
+                <p>Organiza tus libros deseados y guarda tus lecturas preferidas en un solo lugar.</p>
+            </div>
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Guías de Lectura</h3>
+                <p>Descubre nuevas lecturas a través de nuestras guías temáticas y recomendaciones.</p>
+            </div>
+            <div class="feature-item">
+                <h3><span class="span-box">*</span><br>Recomendaciones Personalizadas</h3>
+                <p>Recibe sugerencias de libros basadas en tus intereses y tu historial de lectura.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="book-count">
+        <h2>Con +1000 libros</h2>
+        <p>Disfruta de los beneficios de registrarte a nuestra página, compartiendo opiniones con más lectores.</p>
+        <a href="../src/Models/login.php" class="cta-button">Explora →</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AETERNUM.</h3>
+                <p>Tu espacio digital para explorar mundos literarios y expandir tu conocimiento.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Acerca de</h3>
+                <ul>
+                    <li><a href="#">Equipo</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Privacidad</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos de Servicio</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> Aeternum. Todos los derechos reservados.</p>
+        </div>
+
+        <script>
+            document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

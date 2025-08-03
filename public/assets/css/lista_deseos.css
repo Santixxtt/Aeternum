@@ -1,0 +1,541 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+.header {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  transition: all 0.4s ease;
+  z-index: 1000;
+}
+
+.header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  max-width: 250px; 
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.user-icon {
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3 ease;
+}
+
+.user-icon:hover i {
+    color: #B6407D;
+    transform: scale(1.1);
+}
+
+.user-icon i {
+    font-size: 30px;
+    color: #333;
+}
+
+/*Cuadro de logout y perfil*/
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: none;
+    width: 180px;
+    z-index: 1000;
+}
+
+.user-icon:hover .dropdown {
+    display: block;
+}
+
+.dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dropdown a:hover {
+    background-color: #e0f0ff; 
+    color: #B6407D;            
+}
+
+.dropdown a:hover i {
+    color: #B6407D; 
+}
+
+.dropdown i {
+    font-size: 24px;
+    color: #333;
+}
+
+.titulo-con-asterisco {
+    position: relative;
+    display: inline-block; /* Para que no se estire al 100% */
+}
+
+.span-asterisco {
+    font-size: 3.5rem;
+    color: #B6407D;
+    position: absolute;
+    top: 0;
+    right: 180px; /* Centra asterisco con el texto*/
+    gap: 20px;
+} 
+
+/* Loader para búsqueda de libros */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+.loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #B6407D;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.point{
+    color: #000000;
+    font-size: 2em;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.nav ul li {
+    margin-left: 80px; /* Puedes ajustar este margen para la separación */
+}
+
+.nav ul li:first-child {
+    margin-left: 0; /* Elimina el margen izquierdo del primer elemento */
+}
+
+.star-active i.bxs-star {
+    color: white;
+}
+
+.nav a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.search-fullscreen {
+    position: fixed;
+    top: 80px; /* debajo del header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: white;
+    overflow-y: auto;
+    padding: 20px;
+    display: none;
+    z-index: 998; /* BAJA el z-index a que sea menor que el header */
+}
+
+.search-fullscreen .book-card {
+    display: inline-block;
+    width: 200px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    text-align: center;
+    vertical-align: top;
+}
+
+.search-fullscreen .book-card:first-child {
+    margin-top: 10px; /* Suaviza la línea del borde superior */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 25px;
+    padding: 8px 12px;
+    margin-left: 40px;
+}
+
+.search-bar i {
+    font-size: 1.2rem;
+    color: #777;
+    margin-right: 8px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #333;
+    width: 150px;
+}
+
+.search-bar input::placeholder {
+    color: #999;
+}
+
+.search-results .book-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-results .book-card:hover {
+    background-color: #f5f5f5;
+}
+
+.search-results .book-card h3 {
+    font-size: 1rem;
+    margin: 0;
+    flex: 1;
+}
+
+.search-results .book-card p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+
+.bx user-circle{
+    font-size: 2rem;
+    color: #333;
+}
+
+.hero {
+    background-size: cover;
+    background-color: #000000;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: rgb(180, 180, 180);
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    margin-left: 50px; 
+    margin-right: 50px;
+}
+
+.img1{
+    width: 1200px;
+    height: 670px;
+    border-radius: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-image: linear-gradient(to right, #EF53EC, #993A90);
+    color: #000000;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 60px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-image: linear-gradient(to right, #EF53EC, #993A90);
+    transform: translateY(-6px);/*Efecto elevacion*/
+
+}
+
+
+/* Estrella animada lista de deseos */
+.star-button {
+    background: #fff;
+    border: 2px solid #ef53ec;
+    color: #B6407D;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    margin: 0 4px;
+}
+
+.star-button i {
+    font-size: 1.6rem;
+    color: #B6407D;
+    transition: color 0.3s, filter 0.3s;
+}
+.star-button.star-active i {
+    color: #fff;
+    filter: drop-shadow(0 0 6px #B6407D);
+}
+
+.star-animate {
+    animation: pop-star 0.5s;
+}
+
+/* Botón de préstamo con ancho automático */
+.action-button.loan-button {
+    width: auto;
+    min-width: 90px;
+    padding: 0 1.6em;
+    font-size: 1.1rem;
+    border-radius: 18px;
+}
+
+.star-button.star-active i {
+    color: #fff;
+    filter: drop-shadow(0 0 6px #B6407D);
+}
+
+@keyframes pop-star {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/*Footer*/
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 30px 20px 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+.footer-section h3 {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #ddd;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 5px;
+}
+
+.footer-section a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.feature-item i {
+  color: #e91e63;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  padding: 15px 20px;
+  font-size: 0.85em;
+  color: #aaa;
+}
+
+/*Card de los libros de deseos*/
+
+.deseos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+@media (min-width: 1200px) {
+    .book-card {
+        flex: 1 1 calc(25% - 2rem); /* 4 por fila */
+        max-width: 220px;
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 900px) {
+    .book-card {
+        flex: 1 1 calc(33.33% - 2rem); /* 3 por fila */
+    }
+}
+
+@media (max-width: 899px) and (min-width: 600px) {
+    .book-card {
+        flex: 1 1 calc(50% - 2rem); /* 2 por fila */
+    }
+}
+
+@media (max-width: 599px) {
+    .book-card {
+        flex: 1 1 100%; /* 1 por fila */
+    }
+}
+
+
+.book-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.book-card h4 {
+    font-size: 1rem;
+    margin: 10px 0 5px 0;
+}
+
+.book-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.book-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.action-button {
+    background-color: #6C3483; /* Morado */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.action-button i {
+    margin-right: 4px;
+}
+
+.action-button:hover {
+    background-color: #512E5F;
+}
+
+.star-active {
+    background-color: #C0392B;
+}
+
+.loan-button {
+    background-color: #6e3ab2;
+    color: white !important;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.download-button {
+    color: #333;
+}
+
+.action-button:hover {
+    background-color: #dcdcdc;
+}
+
+.star-active {
+    color: gold;
+}
