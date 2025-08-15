@@ -4,69 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
     <title>Aeternum - Tu Biblioteca Digital</title>
 </head>
 
 <body>
-    <div class="header" id="navbar">
+    <div class="header" id="navbar" data-aos="fade-down" data-aos-duration="800">
         <div class="header-content">
-            <div class="logo">
+            <div class="logo" data-aos="zoom-in" data-aos-duration="800">
                 <img src="assets/img/aeternum_logo.png" alt="" placeholder="logo">
             </div>
 
-            <nav class="nav">
+            <div class="nav-toggle" data-aos="fade-left" data-aos-duration="800">
+                <i class='bx bx-menu' id="menu-icon"></i>
+            </div>
+
+            <nav class="nav" id="nav-menu" data-aos="fade-left" data-aos-duration="800">
                 <ul>
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Catálogo</a></li>
                     <li><a href="#footer">Contacto</a></li>
+                    <li>
+                        <a href="login.php" class="login-button">
+                            <i class='bx bx-user-circle'></i> Inicio de sesión
+                        </a>
+                    </li>
                 </ul>
             </nav>
-
-            <div class="user-icon">
-                <a href="login.php"><i class='bx bx-user-circle'></i></a>
-            </div>
         </div>
     </div>
 
-
     <section class="hero">
         <div>
-            <h1>Bienvenid@ a Nuestra Biblioteca Aeternum</h1>
-            <p>Aquí puedes encontrar una página que te ayudará a explorar los mundos fantásticos de la literatura y el
-                conocimiento. ¡Te invitamos a sumergirte en nuestros catálogos y disfrutar de tus lecturas!</p>
-            <a href="#" class="cta-button">Únete ahora</a><br><br><br>
-            <img src="assets/img/img-home.jpg" alt="imagen" class="img1">
+            <h1 data-aos="fade-down" data-aos-duration="800">Bienvenid@ a Nuestra Biblioteca Aeternum</h1>
+            <p data-aos="fade-up" data-aos-duration="800">
+                Aquí puedes encontrar una página que te ayudará a explorar los mundos fantásticos de la literatura y el
+                conocimiento. ¡Te invitamos a sumergirte en nuestros catálogos y disfrutar de tus lecturas!
+            </p>
+            <a href="#" class="cta-button" data-aos="zoom-in" data-aos-duration="800">Únete ahora</a><br><br><br>
+            <img src="assets/img/img-home.jpg" alt="imagen" class="img1" data-aos="fade-left" data-aos-duration="800">
         </div>
     </section>
 
     <section class="features">
-        <h2><span>*</span><br>¿Qué ofrece nuestra página?</h2>
-        <p>Disfruta de préstamos digitales con fechas flexibles, crea tu lista de deseos, deja reseñas y recibe
-            recomendaciones personalizadas según tus lecturas.</p>
+        <h2 data-aos="fade-down" data-aos-duration="800"><span>*</span><br>¿Qué ofrece nuestra página?</h2>
+        <p data-aos="fade-up" data-aos-duration="800">
+            Disfruta de préstamos digitales con fechas flexibles, crea tu lista de deseos, deja reseñas y recibe
+            recomendaciones personalizadas según tus lecturas.
+        </p>
         <div class="features-grid">
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800">
                 <h3><span class="span-box">*</span><br>Variedad de Libros</h3>
                 <p>Explora un amplio catálogo que incluye novelas, ensayos, poesía y mucho más.</p>
             </div>
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                 <h3><span class="span-box">*</span><br>Préstamos Flexibles</h3>
                 <p>Disfruta de tus lecturas al ritmo que prefieras con plazos ajustables.</p>
             </div>
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                 <h3><span class="span-box">*</span><br>Reseñas de la Comunidad</h3>
                 <p>Lee las opiniones de otros lectores y comparte tus propias experiencias literarias.</p>
             </div>
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
                 <h3><span class="span-box">*</span><br>Listas y Favoritos</h3>
                 <p>Organiza tus libros deseados y guarda tus lecturas preferidas en un solo lugar.</p>
             </div>
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
                 <h3><span class="span-box">*</span><br>Guías de Lectura</h3>
                 <p>Descubre nuevas lecturas a través de nuestras guías temáticas y recomendaciones.</p>
             </div>
-            <div class="feature-item">
+            <div class="feature-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
                 <h3><span class="span-box">*</span><br>Recomendaciones Personalizadas</h3>
                 <p>Recibe sugerencias de libros basadas en tus intereses y tu historial de lectura.</p>
             </div>
@@ -74,18 +84,20 @@
     </section>
 
     <section class="book-count">
-        <h2>Con +1000 libros</h2>
-        <p>Disfruta de los beneficios de registrarte a nuestra página, compartiendo opiniones con más lectores.</p>
-        <a href="../src/Models/login.php" class="cta-button">Explora →</a>
+        <h2 data-aos="fade-down" data-aos-duration="800">Con +1000 libros</h2>
+        <p data-aos="fade-up" data-aos-duration="800">
+            Disfruta de los beneficios de registrarte a nuestra página, compartiendo opiniones con más lectores.
+        </p>
+        <a href="../src/Models/login.php" class="cta-button" data-aos="zoom-in" data-aos-duration="800">Explora →</a>
     </section>
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="footer-content">
-            <div class="footer-section">
+            <div class="footer-section" data-aos="fade-up" data-aos-duration="800">
                 <h3>AETERNUM.</h3>
                 <p>Tu espacio digital para explorar mundos literarios y expandir tu conocimiento.</p>
             </div>
-            <div class="footer-section">
+            <div class="footer-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                 <h3>Acerca de</h3>
                 <ul>
                     <li><a href="#">Equipo</a></li>
@@ -93,7 +105,7 @@
                     <li><a href="#">Contacto</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
+            <div class="footer-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                 <h3>Privacidad</h3>
                 <ul>
                     <li><a href="#">Política de Privacidad</a></li>
@@ -101,7 +113,7 @@
                     <li><a href="#">Ayuda</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
+            <div class="footer-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
                 <h3>Social</h3>
                 <ul>
                     <li><a href="#">Facebook</a></li>
@@ -111,15 +123,37 @@
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom" data-aos="fade-up" data-aos-duration="800">
             <p>&copy; <span id="year"></span> Aeternum. Todos los derechos reservados.</p>
         </div>
+        <p> <span id="year"></span></p>
 
-        <script>
-            document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <!-- Script principal -->
+    <script src="assets/js/index.js"></script>
+
+    <!-- Script de AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script>
+        (function () {
+        function setYear() {
+            var el = document.getElementById('year');
+            if (el) el.textContent = new Date().getFullYear();
+        }
+        // Corre ahora, al DOM listo y al load, para cubrir cualquier orden/caché
+        try { setYear(); } catch (e) {}
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setYear);
+        }
+        window.addEventListener('load', setYear);
+        })();
+    </script>
+
+
 </body>
 </html>
