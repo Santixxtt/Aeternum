@@ -1,0 +1,431 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+.header {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  transition: all 0.4s ease;
+  z-index: 1000;
+}
+
+.header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  max-width: 250px; 
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.user-icon {
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3 ease;
+}
+
+.user-icon:hover i {
+    color: #B6407D;
+    transform: scale(1.1);
+}
+
+.user-icon i {
+    font-size: 30px;
+    color: #333;
+}
+
+/* Dropdown usuario */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: none;
+    width: 180px;
+    z-index: 1000;
+}
+
+.user-icon:hover .dropdown {
+    display: block;
+}
+
+.dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dropdown a:hover {
+    background-color: #e0f0ff; 
+    color: #B6407D;            
+}
+
+.dropdown a:hover i {
+    color: #B6407D; 
+}
+
+.dropdown i {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Título con asterisco */
+.titulo-con-asterisco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo-con-asterisco h2 {
+    font-size: 2rem;
+    margin: 0;
+    position: relative;
+}
+
+.span-asterisco {
+    font-size: 2.5rem;
+    color: #B6407D;
+    margin-bottom: 2px;
+}
+
+/* Loader */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+.loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #B6407D;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.point{
+    color: #000000;
+    font-size: 2em;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav ul li {
+    margin-left: 80px;
+}
+
+.nav ul li:first-child {
+    margin-left: 0;
+}
+
+.nav a {
+    color: #000000;
+    text-decoration: none;
+}
+
+/* Buscador */
+.search-fullscreen {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: white;
+    overflow-y: auto;
+    padding: 20px;
+    display: none;
+    z-index: 998;
+}
+
+.search-fullscreen .book-card {
+    display: inline-block;
+    width: 200px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    text-align: center;
+    vertical-align: top;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 25px;
+    padding: 8px 12px;
+    margin-left: 40px;
+}
+
+.search-bar i {
+    font-size: 1.2rem;
+    color: #777;
+    margin-right: 8px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #333;
+    width: 150px;
+}
+
+.search-bar input::placeholder {
+    color: #999;
+}
+
+/* === Grid de libros === */
+.deseos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    --gap: 45px; /* o 20px, aquí controlas */
+    gap: var(--gap);
+    max-width: calc(220px * 4 + var(--gap) * 3); /* 4 cards + 3 gaps */
+    margin: 20px auto;
+    justify-content: center;
+}
+
+
+
+.book-card {
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.book-card h4 {
+    margin: 0.5rem 0 0.3rem;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-card p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9rem;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem;
+}
+
+/* === Botones de acción === */
+.book-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-button {
+    background-image: linear-gradient(to right, #B6407D, #EF53EC);
+    color: #fff !important;
+    border: none;
+    border-radius: 15px;
+    padding: 8px 28px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(182,64,125,0.08);
+    outline: none;
+}
+
+.action-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(182,64,125,0.25);
+}
+
+/* Estrella animada lista de deseos */
+.star-button {
+    background: #fff;
+    border: 2px solid #ef53ec;
+    color: #B6407D;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.star-button i {
+    font-size: 1.6rem;
+    color: #B6407D;
+}
+
+.star-button.star-active {
+    background-image: linear-gradient(to right, #B6407D, #EF53EC);
+}
+
+.star-button.star-active i {
+    color: #fff;
+    filter: drop-shadow(0 0 6px #B6407D);
+}
+
+/* Animación de estrella */
+.star-animate {
+    animation: pop-star 0.5s;
+}
+
+@keyframes pop-star {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* Botón de préstamo con ancho automático */
+.action-button.loan-button {
+    width: auto;
+    min-width: 90px;
+    padding: 5 5em;
+    font-size: 1.1rem;
+    border-radius: 18px;
+    text-decoration: none;
+}
+
+/* === Footer === */
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 30px 20px 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+.footer-section h3 {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #ddd;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 5px;
+}
+
+.footer-section a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.feature-item i {
+  color: #e91e63;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  padding: 15px 20px;
+  font-size: 0.85em;
+  color: #aaa;
+}
