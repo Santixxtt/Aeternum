@@ -54,14 +54,14 @@
                         </div>
                         <ul class="dropdown" id="dropdownMenu">
                             <li>
-                            <a href="../Controllers/logout.php">
-                                <i class='bx bx-log-out'></i> Salir
-                            </a>
+                                <a href="../Controllers/logout.php">
+                                    <i class='bx bx-log-out'></i> Salir
+                                </a>
                             </li>
                             <li>
-                            <a href="#">
-                                <i class='bx bx-user'></i> Perfil
-                            </a>
+                                <a href="#">
+                                    <i class='bx bx-user'></i> Perfil
+                                </a>
                             </li>
                         </ul>
                         </li>

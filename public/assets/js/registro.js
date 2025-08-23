@@ -66,14 +66,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!soloNumerosRegex.test(this.value.trim())) {
                 mostrarError('numeroIdError', "Ingrese solo números.");
                 marcarCampo(this, false);
-            } else if (this.value.trim().length === 10) {
+            } else if (this.value.trim().length >= 8 && this.value.trim().length <= 10) { 
                 ocultarMensaje('numeroIdError');
-                marcarCampo(this, true); // Es válido si tiene 10 y son números
+                marcarCampo(this, true);
             } else {
-                // Si tiene menos de 10 dígitos pero son números y no está vacío, todavía no es válido
-                mostrarError('numeroIdError', 'El número de identificación debe tener exactamente 10 dígitos.');
+                mostrarError('numeroIdError', 'El número de identificación debe tener entre 8 y 10 dígitos.');
                 marcarCampo(this, false);
             }
+
         } else {
             // Si está vacío, no mostrar error de longitud aún, solo marcar como inválido
             marcarCampo(this, false);
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!soloNumerosRegex.test(valor)) {
                 mostrarError('numeroIdError', "Ingrese solo números.");
                 marcarCampo(this, false);
-            } else if (valor.length !== 10) {
+            } else if (valor.length < 8 || valor.length > 10) { // Validación exacta de 10 dígitos al enviar
                 mostrarError('numeroIdError', "El número de identificación debe tener exactamente 10 dígitos.");
                 marcarCampo(this, false);
             } else {
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // o el usuario pudo haber dejado campos sin interactuar.
 
         // Validar Tipo de Identificación (obligatorio)
-        const tipoId = document.getElementById('tipoid');
+        const tipoId = document.getElementById('tipoId');
         const tipoIdError = document.getElementById('tipoIdError');
         if (tipoId.value === "") {
             mostrarError('tipoIdError', "Seleccione un tipo de identificación.");
@@ -172,8 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
             numeroId.classList.add('input-error');
             validoFormulario = false;
             estadoValidacion[numeroId.name] = false;
-        } else if (numeroId.value.trim().length !== 10) { // Validacion exacta de 10 digitos al enviar
-            mostrarError('numeroIdError', "El número de identificación debe tener exactamente 10 dígitos.");
+        } else if (numeroId.value.trim().length < 8 || numeroId.value.trim().length > 10) { 
+            mostrarError('numeroIdError', "El número de identificación debe tener entre 8 y 10 dígitos.");
             numeroId.classList.add('input-error');
             validoFormulario = false;
             estadoValidacion[numeroId.name] = false;
@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
             numeroId.classList.remove('input-error');
             estadoValidacion[numeroId.name] = true;
         }
+
 
         // Volver a validar todos los campos de texto por si el usuario no interactuó con ellos
         ['nombres', 'apellidos', 'email', 'password'].forEach(id => {

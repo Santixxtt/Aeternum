@@ -53,7 +53,13 @@ body {
 .user-icon {
     position: relative;
     cursor: pointer;
-    transition: color 0.3 ease;
+    /* transition: color 0.3 ease; */
+}
+
+.user-icon i {
+    font-size: 30px;
+    color: #333;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .user-icon:hover i {
@@ -61,12 +67,73 @@ body {
     transform: scale(1.1);
 }
 
-.user-icon i {
-    font-size: 30px;
-    color: #333;
+/* Dropdown oculto por defecto (sin :hover) */
+.user-menu {
+  position: relative;
 }
 
-.dropdown {
+/* Lo dejamos en block para animar; es absoluto, no ocupa espacio */
+.user-menu .dropdown{
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+
+  /* oculto por defecto sin parpadeo al cargar */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity .15s ease, transform .15s ease, visibility .15s step-end;
+}
+
+/* Visible solo cuando el <li> tiene .open */
+.user-menu.open .dropdown{
+    display: block;
+    list-style: none;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity .15s ease, transform .15s ease, visibility 0s;
+}
+
+/* Icono usuario (opcional, solo estética) */
+.user-icon i{
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+}
+.user-icon:hover i{ 
+    color:#B6407D; transform: scale(1.05); 
+}
+
+.user-menu .dropdown li {
+  display: block;        /* cada li ocupa toda la línea */
+  padding: 8px 12px;     /* espacio interno */
+}
+
+.user-menu .dropdown li a {
+  display: flex;         /* ícono + texto alineados */
+  align-items: center;
+  gap: 8px;              /* espacio entre ícono y texto */
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-menu .dropdown li a:hover {
+  background: #f5f5f5;   /* efecto hover */
+  color: #B6407D;
+}
+
+
+/* .dropdown {
     position: absolute;
     top: 100%;
     right: 0;
@@ -80,7 +147,7 @@ body {
     z-index: 1000;
 }
 
-.user-icon:hover .dropdown {
+.user-icon .dropdown {
     display: block;
 }
 
@@ -92,7 +159,7 @@ body {
     color: #333;
     text-decoration: none;
     font-size: 16px;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .dropdown a:hover {
@@ -107,7 +174,7 @@ body {
 .dropdown i {
     font-size: 24px;
     color: #333;
-}
+} */
 
 /* Loader para búsqueda de libros */
 .loader-container {
@@ -156,20 +223,25 @@ body {
     font-size: 2em;
 }
 
+/* .nav{
+    margin-top: 14px;
+} */
+
 .nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* alinear verticalmente */
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .nav ul li {
-    margin-left: 80px; /* Puedes ajustar este margen para la separación */
+    margin-left: 60px; /* Más espacio para evitar que se corte el texto */
 }
 
 .nav ul li:first-child {
-    margin-left: 0; /* Elimina el margen izquierdo del primer elemento */
+    margin-left: 0;
 }
 
 .nav a {
@@ -270,7 +342,7 @@ body {
     background-size: cover;
     background-color: #000000;
     text-align: center;
-    padding: 100px 20px;
+    padding: 100px 0;
 }
 
 .hero h1 {
@@ -487,7 +559,6 @@ body {
     padding: 0 1.6em;
     font-size: 1.1rem;
     border-radius: 18px;
-    text-decoration: none;
 }
 
 @keyframes pop-star {
@@ -641,52 +712,4 @@ body {
   padding: 15px 20px;
   font-size: 0.85em;
   color: #aaa;
-}
-
-/* 🔹 Ocultar menú y mostrar icono en móviles */
-.menu-toggle {
-  display: none;
-  font-size: 2rem;
-  color: #333;
-  cursor: pointer;
-}
-
-/* 🔹 Nav en escritorio */
-.nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  gap: 40px; /* separación más flexible */
-}
-
-/* 🔹 Responsive */
-@media (max-width: 768px) {
-  .nav ul {
-    position: absolute;
-    top: 70px; /* debajo del header */
-    right: 0;
-    background: #fff;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 220px;
-    padding: 15px;
-    gap: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    border-radius: 8px 0 0 8px;
-    display: none; /* oculto por defecto */
-  }
-
-  .nav ul.show {
-    display: flex; /* se despliega con JS */
-  }
-
-  .menu-toggle {
-    display: block; /* se ve solo en móvil */
-  }
-
-  .search-bar {
-    display: none; /* opcional: ocultamos búsqueda en móvil */
-  }
 }

@@ -60,7 +60,7 @@
             <h1>Registro</h1>
             <p>Ingrese sus datos para registrarse a <strong>Aeternum</strong></p>
 
-            <form id="registroForm" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
+            <form id="registroForm" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="form-group">
                     <label for="nombres">Nombres</label>
                     <input type="text" id="nombres" name="nombres" required placeholder="Ingresa tus nombres">

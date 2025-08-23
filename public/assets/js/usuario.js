@@ -11,19 +11,35 @@ window.addEventListener('scroll', function () {
 });
 
 // User Icon Dropdown
-const userIcon = document.getElementById('userIcon');
-const dropdown = document.getElementById('dropdownMenu');
 
-userIcon.addEventListener('click', function (e) {
+// Dropdown perfil por click (sin :hover)
+const userMenu  = document.querySelector('.user-menu');
+const userIcon  = userMenu?.querySelector('#userIcon');
+const dropdown  = userMenu?.querySelector('#dropdownMenu');
+
+if (userIcon && dropdown) {
+  // Asegura oculto al iniciar (anti-parpadeo, por si hay estilos inline previos)
+  dropdown.style.opacity = '';
+  dropdown.style.visibility = '';
+  dropdown.style.transform = '';
+
+  userIcon.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-});
+    userMenu.classList.toggle('open');
+  });
 
-document.addEventListener('click', function (e) {
-    if (!userIcon.contains(e.target)) {
-        dropdown.style.display = 'none';
-    }
-});
+  // Cerrar al hacer click fuera
+  document.addEventListener('click', (e) => {
+    if (!userMenu.contains(e.target)) userMenu.classList.remove('open');
+  });
+
+  // Cerrar con ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') userMenu.classList.remove('open');
+  });
+}
+
 
 // Búsqueda OpenLibrary
 const searchInput = document.getElementById('searchInput');
@@ -197,12 +213,3 @@ document.addEventListener('keypress', function(e) {
     }
 });
 
-
-//Responsive para movil
-
-const menuToggle = document.getElementById("menu-toggle");
-const navMenu = document.querySelector(".nav-menu");
-
-menuToggle.addEventListener("click", () => {
-  navMenu.classList.toggle("show");
-});
