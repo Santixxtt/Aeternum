@@ -10,7 +10,6 @@ window.addEventListener('scroll', function () {
     }
 });
 
-// User Icon Dropdown
 
 // Dropdown perfil por click (sin :hover)
 const userMenu  = document.querySelector('.user-menu');
@@ -93,8 +92,16 @@ async function searchBooks(query) {
                                     <i class='bx bx-star'></i>
                                 </button>
                             </div>
-                            <a href="https://openlibrary.org${book.key}/borrow" target="_blank" class="action-button loan-button" title="Pedir Préstamo">
+                            <a class="action-button loan-button" title="Pedir Préstamo"
+                            data-libro="${JSON.stringify({
+                                key: book.key,
+                                title: book.title,
+                                author_name: book.author_name,
+                                cover_i: book.cover_i || 0
+                            }).replace(/"/g, '&quot;')}"
+                            data-openlibrary-url="https://openlibrary.org${book.key}/borrow">
                             Préstamelo
+                            </a>
                         </a>
                         </div>
                     </div>
@@ -109,6 +116,14 @@ async function searchBooks(query) {
                 btn.addEventListener('click', function (e) {
                     const libroData = JSON.parse(this.getAttribute('data-libro').replace(/&apos;/g, "'"));
                     agregarListaDeseos(libroData, this);
+                });
+            });
+
+            // ACTIVAR EVENTOS DEL BOTÓN DE PRÉSTAMO
+            document.querySelectorAll('#resultados .loan-button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const libroData = JSON.parse(this.getAttribute('data-libro').replace(/&apos;/g, "'"));
+                    registrarPrestamo(libroData, this);
                 });
             });
 

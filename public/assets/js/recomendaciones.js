@@ -39,7 +39,14 @@ async function cargarRecomendados() {
                                 <i class='bxr bx-star'></i>
                             </button>
                         </div>
-                        <a href="https://openlibrary.org${book.key}/borrow" target="_blank" class="action-button loan-button" title="Pedir Préstamo" style="text-decoration:none;">
+                        <a class="action-button loan-button" title="Pedir Préstamo"
+                            data-libro="${JSON.stringify({
+                                key: book.key,
+                                title: book.title,
+                                author_name: book.author_name,
+                                cover_i: book.cover_i || 0
+                            }).replace(/"/g, '&quot;')}"
+                            data-openlibrary-url="https://openlibrary.org${book.key}/borrow">
                             Préstamelo
                         </a>
                         <div class="comment-box">
@@ -52,12 +59,20 @@ async function cargarRecomendados() {
 
         grid.innerHTML = html;
 
-        // ACTIVAR EVENTOS DE LAS ESTRELLAS ⭐
+        // ACTIVAR EVENTOS DE LAS ESTRELLAS DE LISTA DE DESEOS
         document.querySelectorAll('#recomendados-grid .star-button').forEach(btn => {
             btn.addEventListener('click', function() {
                 const libroData = JSON.parse(this.getAttribute('data-libro').replace(/&apos;/g, "'"));
                 console.log('Libro data:', libroData);
                 agregarListaDeseos(libroData, this);
+            });
+        });
+
+        // ACTIVAR EVENTOS DEL BOTÓN DE PRÉSTAMO
+        document.querySelectorAll('#recomendados-grid .loan-button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const libroData = JSON.parse(this.getAttribute('data-libro').replace(/&apos;/g, "'"));
+                registrarPrestamo(libroData, this);
             });
         });
 
@@ -112,39 +127,39 @@ function agregarListaDeseos(book, btn) {
 window.addEventListener('DOMContentLoaded', cargarRecomendados);
 
 // Función para la caja de comentarios
-document.addEventListener('click', function(e) {
-    const card = e.target.closest('.book-card');
-    if (card && (e.target.tagName === 'IMG' || e.target.tagName === 'H4' || e.target.classList.contains('toggle-comment'))) {
-        card.classList.toggle('active');
-    }
-});
+// document.addEventListener('click', function(e) {
+//     const card = e.target.closest('.book-card');
+//     if (card && (e.target.tagName === 'IMG' || e.target.tagName === 'H4' || e.target.classList.contains('toggle-comment'))) {
+//         card.classList.toggle('active');
+//     }
+// });
 
 // Enviar comentario al presionar Enter
-document.addEventListener('keypress', function(e) {
-    if (e.target.classList.contains('comment-input') && e.key === 'Enter') {
-        const comment = e.target.value.trim();
-        const libroKey = e.target.closest('.book-card').dataset.libroKey;
+// document.addEventListener('keypress', function(e) {
+//     if (e.target.classList.contains('comment-input') && e.key === 'Enter') {
+//         const comment = e.target.value.trim();
+//         const libroKey = e.target.closest('.book-card').dataset.libroKey;
 
-        if (comment !== '') {
-            fetch('../Utils/guardar_comentario.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ libro_key: libroKey, comentario: comment })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Comentario guardado!');
-                    e.target.value = '';
-                    e.target.closest('.book-card').classList.remove('active');
-                } else {
-                    alert('Error al guardar comentario');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    }
-});
+//         if (comment !== '') {
+//             fetch('../Utils/guardar_comentario.php', {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/json' },
+//                 body: JSON.stringify({ libro_key: libroKey, comentario: comment })
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data.success) {
+//                     alert('Comentario guardado!');
+//                     e.target.value = '';
+//                     e.target.closest('.book-card').classList.remove('active');
+//                 } else {
+//                     alert('Error al guardar comentario');
+//                 }
+//             })
+//             .catch(error => console.error('Error:', error));
+//         }
+//     }
+// });
 
 // --- LÓGICA PARA EL BOTÓN DE DESCARGA EN LA LISTA DE DESEOS ---
 
@@ -198,3 +213,39 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', handleDownload);
     });
 });
+
+//Función AJAX para solicitar un préstamo
+
+function registrarPrestamo(book, btn, redirectUrl) {
+    // Deshabilitar el botón para evitar múltiples clics
+    btn.disabled = true;
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>'; // O algún spinner de carga
+
+    fetch('../Models/registrar_prestamo.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `libro_key=${encodeURIComponent(book.key)}&titulo=${encodeURIComponent(book.title)}&autor=${encodeURIComponent(book.author_name.join(', '))}&cover_id=${book.cover_i || 0}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('¡Préstamo registrado con éxito! Redirigiendo a OpenLibrary...');
+            // Redirigir al usuario a la URL de OpenLibrary
+            window.location.href = redirectUrl;
+        } else {
+            alert('Error al registrar préstamo: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al registrar préstamo:', error);
+        alert('Hubo un error al intentar registrar el préstamo.');
+    })
+    .finally(() => {
+        // Habilitar el botón y restaurar el contenido original
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
+    });
+}

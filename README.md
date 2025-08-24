@@ -65,4 +65,3 @@ aeternum.sql
 composer require phpmailer/phpmailer
 composer require openlibrary/openlibrary
 composer require XAMPP/XAMPP
-
