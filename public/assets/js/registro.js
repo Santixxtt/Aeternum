@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const strengthBar = document.getElementById('strengthBar');
     const passwordStrengthText = document.getElementById('passwordStrengthText');
 
-    // Estado de validación inicial (todos false)
+    // Estado de validación inicial 
     let estadoValidacion = {
         nombres: false,
         apellidos: false,
@@ -34,10 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         consent: false
     };
 
-    // Deshabilitar botón al inicio
     if (btnEnviar) btnEnviar.disabled = true;
 
-    // --- Helpers ---
     function mostrarError(el, mensaje) {
         if (!el) return;
         el.textContent = mensaje;
@@ -58,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (btnEnviar) btnEnviar.disabled = !todoValido;
     }
 
-    // --- Nombres ---
     if (nombresInput) {
         nombresInput.addEventListener('input', function() {
             const v = this.value.trim();
@@ -75,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Apellidos ---
     if (apellidosInput) {
         apellidosInput.addEventListener('input', function() {
             const v = this.value.trim();
@@ -92,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Tipo de identificación (select) ---
     if (tipoIdSelect) {
         tipoIdSelect.addEventListener('change', function() {
             if (this.value === "") {
@@ -108,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Email ---
     if (emailInput) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         emailInput.addEventListener('input', function() {
@@ -126,18 +120,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Número de identificación ---
     if (numeroIdInput) {
         const soloNumerosRegex = /^[0-9]+$/;
 
         // input: forzar solo dígitos y max length 10
         numeroIdInput.addEventListener('input', function() {
-            // Reemplazar cualquier carácter no numérico
+            
             let cleaned = this.value.replace(/\D+/g, '');
             if (cleaned.length > 10) cleaned = cleaned.slice(0, 10);
             if (this.value !== cleaned) this.value = cleaned;
-
-            // Validaciones en tiempo real
             if (cleaned.length === 0) {
                 ocultarMensaje(numeroIdError);
                 estadoValidacion.numeroId = false;
@@ -158,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarBoton();
         });
 
-        // blur: mensaje más específico si no cumple
+        // Mensaje de advertencia si no cumple algun requisito
         numeroIdInput.addEventListener('blur', function() {
             const v = this.value.trim();
             if (v.length === 0) {
@@ -182,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Contraseña + fortaleza ---
+    // Fortaleza de la contraseña
     if (passwordInput) {
         passwordInput.addEventListener('input', function() {
             const password = this.value;
@@ -206,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Toggle ver/ocultar contraseña ---
+    // Ojo para ocultar y ver la contraseña
     const togglePassword = document.getElementById('togglePassword');
     if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
@@ -217,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Consent checkbox ---
+    //Consent checkbox 
     if (consentCheckbox) {
         consentCheckbox.addEventListener('change', function() {
             if (this.checked) {
@@ -229,10 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Envío del formulario ---
     formulario.addEventListener('submit', function(event) {
         // Revalidar todo por seguridad
-        // Nombres y apellidos
         if (!nombresInput || nombresInput.value.trim().length < 3) {
             mostrarError(nombresError, 'Debe tener al menos 3 caracteres');
             estadoValidacion.nombres = false;
@@ -244,21 +233,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (apellidosInput) marcarCampoVisual(apellidosInput, false);
         }
 
-        // Tipo Id
         if (!tipoIdSelect || tipoIdSelect.value === "") {
             mostrarError(tipoIdError, 'Seleccione un tipo de identificación.');
             estadoValidacion.tipoId = false;
             if (tipoIdSelect) tipoIdSelect.classList.add('input-error');
         }
 
-        // Numero ID (revalidar)
         if (!numeroIdInput || numeroIdInput.value.trim() === "") {
             mostrarError(numeroIdError, 'El número de identificación es obligatorio.');
             estadoValidacion.numeroId = false;
             if (numeroIdInput) marcarCampoVisual(numeroIdInput, false);
         }
 
-        // Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailInput || !emailRegex.test(emailInput.value.trim())) {
             mostrarError(emailError, 'Formato de correo inválido');
@@ -266,20 +252,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (emailInput) marcarCampoVisual(emailInput, false);
         }
 
-        // Password
         if (!passwordInput || passwordInput.value.length < 8) {
             mostrarError(claveError, 'Debe tener al menos 8 caracteres');
             estadoValidacion.password = false;
             if (passwordInput) marcarCampoVisual(passwordInput, false);
         }
 
-        // Consent
         if (!consentCheckbox || !consentCheckbox.checked) {
             alert('Debes aceptar la Política de Privacidad para crear la cuenta.');
             estadoValidacion.consent = false;
         }
 
-        // Si alguno no válido, evitar submit
+        // Si alguno no es calido evita subirlo
         const todoValido = Object.values(estadoValidacion).every(v => v === true);
         if (!todoValido) {
             event.preventDefault();
@@ -288,10 +272,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        // si todo ok, el formulario se enviará normalmente (server-side hará más validaciones)
+        // si todo ok, el formulario se enviara
     });
 
-    // --- Fortaleza de password (misma lógica con ajuste de niveles) ---
+    // --- Fortaleza de password 
     function calcularFortalezaPassword(password) {
         let puntos = 0;
         if (password.length >= 8) puntos++;
@@ -321,7 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
         passwordStrengthText.textContent = `Fortaleza: ${fortaleza.texto}`;
     }
 
-    // Inicializar (por si el formulario tiene datos precargados)
     // Forzar validaciones iniciales
     if (nombresInput) nombresInput.dispatchEvent(new Event('input'));
     if (apellidosInput) apellidosInput.dispatchEvent(new Event('input'));

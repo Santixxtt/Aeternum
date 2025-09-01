@@ -129,6 +129,7 @@
         </footer>
 
     <script src="assets/js/index.js"></script>
+    <script src="assets/js/concent.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
     <script>
@@ -145,5 +146,20 @@
         // Llama a la función al cargar el DOM
         document.addEventListener('DOMContentLoaded', setFooterYear);
     </script>
+
+    <div id="consentModal" class="modal-container">
+    <div class="modal-content">
+        <span class="close-button">&times;</span> <!--X para cerrar ventana emergente -->
+        <h2>Consentimiento Informado</h2>
+        <p>
+            Al utilizar este sitio web, usted acepta los términos de nuestra Política de Privacidad. Lea detenidamente la información para entender cómo recopilamos, usamos y protegemos sus datos.
+        </p>
+        <p>
+            Al hacer clic en "Aceptar", usted confirma que ha leído y está de acuerdo con nuestra
+            <a href="politica_privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.
+        </p>
+        <button id="acceptConsent" class="accept-button">Aceptar</button>
+    </div>
+</div>
 </body>
 </html>
