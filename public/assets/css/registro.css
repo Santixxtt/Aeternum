@@ -13,7 +13,7 @@ body {
 .container {
     display: flex;
     width: 90%;
-    height: 900px;
+    height: 100%;
     max-width: 1200px;
     background-color: #292929;
     border-radius: 10px;
@@ -23,7 +23,7 @@ body {
 /* Sección de inicio de sesión o registro */
 .login-section {
     flex: 1;
-    padding: 30px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
 }
@@ -220,5 +220,5 @@ body {
 }
 
 .password-strength.very-strong {
-  background-color: #007bff;
+  background-color: #B6407D;
 }

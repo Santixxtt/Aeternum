@@ -24,7 +24,7 @@
 
             <nav class="nav" id="nav-menu" data-aos="fade-left" data-aos-duration="800">
                 <ul>
-                    <li><a href="#">Inicio</a></li>
+                    <li><a href="index.html">Inicio</a></li>
                     <li><a href="#">Catálogo</a></li>
                     <li><a href="#footer">Contacto</a></li>
                     <li>
@@ -108,7 +108,7 @@
             <div class="footer-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                 <h3>Privacidad</h3>
                 <ul>
-                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="politica_privacidad.html">Política de Privacidad</a></li>
                     <li><a href="#">Términos de Servicio</a></li>
                     <li><a href="#">Ayuda</a></li>
                 </ul>
@@ -126,34 +126,24 @@
         <div class="footer-bottom" data-aos="fade-up" data-aos-duration="800">
             <p>&copy; <span id="year"></span> Aeternum. Todos los derechos reservados.</p>
         </div>
-        <p> <span id="year"></span></p>
+        </footer>
 
-    </footer>
-
-    <!-- Script principal -->
     <script src="assets/js/index.js"></script>
-
-    <!-- Script de AOS -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
     <script>
         AOS.init();
+        
+        // Función para establecer el año en el footer
+        const setFooterYear = () => {
+            const yearElement = document.getElementById('year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        };
+
+        // Llama a la función al cargar el DOM
+        document.addEventListener('DOMContentLoaded', setFooterYear);
     </script>
-
-    <script>
-        (function () {
-        function setYear() {
-            var el = document.getElementById('year');
-            if (el) el.textContent = new Date().getFullYear();
-        }
-        // Corre ahora, al DOM listo y al load, para cubrir cualquier orden/caché
-        try { setYear(); } catch (e) {}
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setYear);
-        }
-        window.addEventListener('load', setYear);
-        })();
-    </script>
-
-
 </body>
 </html>

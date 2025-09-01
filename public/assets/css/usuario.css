@@ -1,3 +1,47 @@
+/* --- Responsive menú hamburguesa --- */
+@media (max-width: 900px) {
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100vw;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+    .nav.active {
+        display: block;
+    }
+    .nav-toggle {
+        display: block;
+        cursor: pointer;
+        margin-left: auto;
+    }
+    #menu-icon {
+        font-size: 2.5em;
+        color: #B6407D;
+        transition: color 0.3s;
+    }
+}
+
+@media (min-width: 901px) {
+    .nav-toggle {
+        display: none;
+    }
+    .nav {
+        display: block !important;
+        position: static;
+        background: none;
+        box-shadow: none;
+        width: auto;
+    }
+}
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -223,9 +267,9 @@ body {
     font-size: 2em;
 }
 
-/* .nav{
-    margin-top: 14px;
-} */
+.nav{
+    display: none;
+}
 
 .nav ul {
     display: flex;
@@ -713,4 +757,53 @@ body {
   padding: 15px 20px;
   font-size: 0.85em;
   color: #aaa;
+}
+
+/* Responsive nav */
+.nav {
+  display: flex;
+}
+
+.nav-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    flex-direction: column;
+    width: 100%;
+    display: none; /* Oculto por defecto */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .nav ul li {
+    margin: 10px 0;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-left: 0;
+  }
 }

@@ -1,132 +1,214 @@
 document.addEventListener('DOMContentLoaded', function() {
     const formulario = document.getElementById('registroForm');
-    const campos = formulario.querySelectorAll('input');
     const btnEnviar = formulario.querySelector('button[type="submit"]');
 
-    let estadoValidacion = {};
-    campos.forEach((campo) => {
-        
-        estadoValidacion[campo.name] = false; // Ajusta esto si algunos campos no son requeridos al inicio
-    });
-
-    // --- Validación de Nombres ---
-    document.getElementById('nombres').addEventListener('input', function () {
-        const valor = this.value.trim();
-        if (valor.length < 3) {
-            mostrarError('nombresError', 'Debe tener al menos 3 caracteres');
-            marcarCampo(this, false);
-        } else {
-            ocultarMensaje('nombresError');
-            marcarCampo(this, true);
-        }
-    });
-
-    // --- Validación de Apellidos ---
-    document.getElementById('apellidos').addEventListener('input', function () {
-        const valor = this.value.trim();
-        if (valor.length < 3) {
-            mostrarError('apellidosError', 'Debe tener al menos 3 caracteres');
-            marcarCampo(this, false);
-        } else {
-            ocultarMensaje('apellidosError');
-            marcarCampo(this, true);
-        }
-    });
-
-    // --- Validación de Email ---
-    document.getElementById('email').addEventListener('input', function () {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(this.value)) {
-            mostrarError('emailError', 'Formato de correo inválido');
-            marcarCampo(this, false);
-        } else {
-            ocultarMensaje('emailError');
-            marcarCampo(this, true);
-        }
-    });
-
-    // --- Validación de Número de Identificación (en tiempo real y al perder el foco) ---
+    // Campos clave
+    const nombresInput = document.getElementById('nombres');
+    const apellidosInput = document.getElementById('apellidos');
+    const tipoIdSelect = document.getElementById('tipoId');
     const numeroIdInput = document.getElementById('numeroId');
-    const numeroIdError = document.getElementById('numeroIdError');
-    const soloNumerosRegex = /^[0-9]+$/; // Define el regex una sola vez
-
-    // Listener para limitar los caracteres mientras se escribe
-    numeroIdInput.addEventListener('input', function() {
-        // Limita a 10 caracteres
-        if (this.value.length > 10) {
-            this.value = this.value.slice(0, 10);
-        }
-        // Limpia el mensaje de error inmediatamente para una mejor UX mientras el usuario escribe
-        numeroIdError.textContent = "";
-        this.classList.remove('input-error', 'valido', 'invalido'); // Limpiar clases para reevaluar
-        estadoValidacion[this.name] = false; // Asume inválido mientras no cumpla
-
-        // Aplicar validaciones básicas en tiempo real si el campo no está vacío
-        if (this.value.trim().length > 0) {
-            if (!soloNumerosRegex.test(this.value.trim())) {
-                mostrarError('numeroIdError', "Ingrese solo números.");
-                marcarCampo(this, false);
-            } else if (this.value.trim().length >= 8 && this.value.trim().length <= 10) { 
-                ocultarMensaje('numeroIdError');
-                marcarCampo(this, true);
-            } else {
-                mostrarError('numeroIdError', 'El número de identificación debe tener entre 8 y 10 dígitos.');
-                marcarCampo(this, false);
-            }
-
-        } else {
-            // Si está vacío, no mostrar error de longitud aún, solo marcar como inválido
-            marcarCampo(this, false);
-        }
-        // Actualizar el botón de envío después de cada input
-        actualizarBoton();
-    });
-
-    // Listener para validar cuando el usuario sale del campo (blur)
-    numeroIdInput.addEventListener('blur', function() {
-        const valor = this.value.trim();
-        // Solo valida si el campo no está vacío, si está vacío el error se maneja en el submit
-        if (valor.length > 0) {
-            if (!soloNumerosRegex.test(valor)) {
-                mostrarError('numeroIdError', "Ingrese solo números.");
-                marcarCampo(this, false);
-            } else if (valor.length < 8 || valor.length > 10) { // Validación exacta de 10 dígitos al enviar
-                mostrarError('numeroIdError', "El número de identificación debe tener exactamente 10 dígitos.");
-                marcarCampo(this, false);
-            } else {
-                ocultarMensaje('numeroIdError');
-                marcarCampo(this, true);
-            }
-        } else {
-            // Si el campo está vacío al salir, asegúrate de que esté marcado como inválido
-            marcarCampo(this, false);
-        }
-        actualizarBoton();
-    });
-
-
-    // --- Validación de Contraseña + Fortaleza ---
-    document.getElementById('password').addEventListener('input', function () {
-        const password = this.value;
-        const fortaleza = calcularFortalezaPassword(password);
-        actualizarBarraFortaleza(fortaleza);
-
-        if (password.length < 8) {
-            mostrarError('claveError', 'Debe tener al menos 8 caracteres');
-            marcarCampo(this, false);
-        } else if (fortaleza.nivel < 2) { // Nivel 2 o superior para considerarse aceptable
-            mostrarError('claveError', 'Contraseña débil. Usa números y símbolos.');
-            marcarCampo(this, false);
-        } else {
-            ocultarMensaje('claveError');
-            marcarCampo(this, true);
-        }
-    });
-
-    // --- Mostrar/Ocultar Contraseña ---
-    const togglePassword = document.getElementById('togglePassword');
+    const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-    if (togglePassword && passwordInput) { // Verificar si los elementos existen
+    const consentCheckbox = document.getElementById('consent');
+
+    // Errores
+    const nombresError = document.getElementById('nombresError');
+    const apellidosError = document.getElementById('apellidosError');
+    const tipoIdError = document.getElementById('tipoIdError');
+    const numeroIdError = document.getElementById('numeroIdError');
+    const emailError = document.getElementById('emailError');
+    const claveError = document.getElementById('claveError');
+
+    // Barra de fortaleza
+    const strengthBar = document.getElementById('strengthBar');
+    const passwordStrengthText = document.getElementById('passwordStrengthText');
+
+    // Estado de validación inicial (todos false)
+    let estadoValidacion = {
+        nombres: false,
+        apellidos: false,
+        tipoId: false,
+        numeroId: false,
+        email: false,
+        password: false,
+        consent: false
+    };
+
+    // Deshabilitar botón al inicio
+    if (btnEnviar) btnEnviar.disabled = true;
+
+    // --- Helpers ---
+    function mostrarError(el, mensaje) {
+        if (!el) return;
+        el.textContent = mensaje;
+        el.style.display = 'block';
+    }
+    function ocultarMensaje(el) {
+        if (!el) return;
+        el.textContent = '';
+        el.style.display = 'none';
+    }
+    function marcarCampoVisual(campo, esValido) {
+        if (!campo) return;
+        campo.classList.toggle('valido', esValido);
+        campo.classList.toggle('invalido', !esValido);
+    }
+    function actualizarBoton() {
+        const todoValido = Object.values(estadoValidacion).every(v => v === true);
+        if (btnEnviar) btnEnviar.disabled = !todoValido;
+    }
+
+    // --- Nombres ---
+    if (nombresInput) {
+        nombresInput.addEventListener('input', function() {
+            const v = this.value.trim();
+            if (v.length < 3) {
+                mostrarError(nombresError, 'Debe tener al menos 3 caracteres');
+                estadoValidacion.nombres = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(nombresError);
+                estadoValidacion.nombres = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Apellidos ---
+    if (apellidosInput) {
+        apellidosInput.addEventListener('input', function() {
+            const v = this.value.trim();
+            if (v.length < 3) {
+                mostrarError(apellidosError, 'Debe tener al menos 3 caracteres');
+                estadoValidacion.apellidos = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(apellidosError);
+                estadoValidacion.apellidos = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Tipo de identificación (select) ---
+    if (tipoIdSelect) {
+        tipoIdSelect.addEventListener('change', function() {
+            if (this.value === "") {
+                mostrarError(tipoIdError, 'Seleccione un tipo de identificación.');
+                estadoValidacion.tipoId = false;
+                this.classList.add('input-error');
+            } else {
+                ocultarMensaje(tipoIdError);
+                estadoValidacion.tipoId = true;
+                this.classList.remove('input-error');
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Email ---
+    if (emailInput) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        emailInput.addEventListener('input', function() {
+            const v = this.value.trim();
+            if (!emailRegex.test(v)) {
+                mostrarError(emailError, 'Formato de correo inválido');
+                estadoValidacion.email = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(emailError);
+                estadoValidacion.email = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Número de identificación ---
+    if (numeroIdInput) {
+        const soloNumerosRegex = /^[0-9]+$/;
+
+        // input: forzar solo dígitos y max length 10
+        numeroIdInput.addEventListener('input', function() {
+            // Reemplazar cualquier carácter no numérico
+            let cleaned = this.value.replace(/\D+/g, '');
+            if (cleaned.length > 10) cleaned = cleaned.slice(0, 10);
+            if (this.value !== cleaned) this.value = cleaned;
+
+            // Validaciones en tiempo real
+            if (cleaned.length === 0) {
+                ocultarMensaje(numeroIdError);
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else if (!soloNumerosRegex.test(cleaned)) {
+                mostrarError(numeroIdError, 'Ingrese solo números.');
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else if (cleaned.length < 8 || cleaned.length > 10) {
+                mostrarError(numeroIdError, 'El número debe tener entre 8 y 10 dígitos.');
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(numeroIdError);
+                estadoValidacion.numeroId = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+
+        // blur: mensaje más específico si no cumple
+        numeroIdInput.addEventListener('blur', function() {
+            const v = this.value.trim();
+            if (v.length === 0) {
+                mostrarError(numeroIdError, 'El número de identificación es obligatorio.');
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else if (!soloNumerosRegex.test(v)) {
+                mostrarError(numeroIdError, 'Ingrese solo números.');
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else if (v.length < 8 || v.length > 10) {
+                mostrarError(numeroIdError, 'El número debe tener entre 8 y 10 dígitos.');
+                estadoValidacion.numeroId = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(numeroIdError);
+                estadoValidacion.numeroId = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Contraseña + fortaleza ---
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const fortaleza = calcularFortalezaPassword(password);
+            actualizarBarraFortaleza(fortaleza);
+
+            if (password.length < 8) {
+                mostrarError(claveError, 'Debe tener al menos 8 caracteres');
+                estadoValidacion.password = false;
+                marcarCampoVisual(this, false);
+            } else if (fortaleza.nivel < 2) {
+                mostrarError(claveError, 'Contraseña débil. Usa mayúsculas, números y símbolos.');
+                estadoValidacion.password = false;
+                marcarCampoVisual(this, false);
+            } else {
+                ocultarMensaje(claveError);
+                estadoValidacion.password = true;
+                marcarCampoVisual(this, true);
+            }
+            actualizarBoton();
+        });
+    }
+
+    // --- Toggle ver/ocultar contraseña ---
+    const togglePassword = document.getElementById('togglePassword');
+    if (togglePassword && passwordInput) {
         togglePassword.addEventListener('click', () => {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -135,104 +217,81 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
-    // --- Evento de Envío del Formulario ---
-    formulario.addEventListener('submit', function (event) {
-        let validoFormulario = true; // Renombré 'valido' para evitar conflictos con la lógica de 'marcarCampo'
-
-        // Re-validar todos los campos requeridos justo antes del envío
-        // Esto es crucial porque los eventos 'input' o 'blur' pueden no haber cubierto todos los casos
-        // o el usuario pudo haber dejado campos sin interactuar.
-
-        // Validar Tipo de Identificación (obligatorio)
-        const tipoId = document.getElementById('tipoId');
-        const tipoIdError = document.getElementById('tipoIdError');
-        if (tipoId.value === "") {
-            mostrarError('tipoIdError', "Seleccione un tipo de identificación.");
-            tipoId.classList.add('input-error');
-            validoFormulario = false;
-            estadoValidacion[tipoId.name] = false; // Asegura que el estado se refleje
-        } else {
-            ocultarMensaje('tipoIdError');
-            tipoId.classList.remove('input-error');
-            estadoValidacion[tipoId.name] = true;
-        }
-
-        // Validar Número de Identificación (obligatorio, solo números, 10 dígitos)
-        const numeroId = document.getElementById('numeroId');
-        const soloNumeros = /^[0-9]+$/; // Asegúrate de que este regex esté definido
-
-        if (numeroId.value.trim() === "") {
-            mostrarError('numeroIdError', "El número de identificación es obligatorio.");
-            numeroId.classList.add('input-error');
-            validoFormulario = false;
-            estadoValidacion[numeroId.name] = false;
-        } else if (!soloNumeros.test(numeroId.value.trim())) {
-            mostrarError('numeroIdError', "Ingrese solo números.");
-            numeroId.classList.add('input-error');
-            validoFormulario = false;
-            estadoValidacion[numeroId.name] = false;
-        } else if (numeroId.value.trim().length < 8 || numeroId.value.trim().length > 10) { 
-            mostrarError('numeroIdError', "El número de identificación debe tener entre 8 y 10 dígitos.");
-            numeroId.classList.add('input-error');
-            validoFormulario = false;
-            estadoValidacion[numeroId.name] = false;
-        } else {
-            ocultarMensaje('numeroIdError');
-            numeroId.classList.remove('input-error');
-            estadoValidacion[numeroId.name] = true;
-        }
-
-
-        // Volver a validar todos los campos de texto por si el usuario no interactuó con ellos
-        ['nombres', 'apellidos', 'email', 'password'].forEach(id => {
-            const campo = document.getElementById(id);
-            // Simular el evento 'input' para disparar sus validaciones si el campo no ha sido marcado como válido
-            if (!estadoValidacion[campo.name]) {
-                 campo.dispatchEvent(new Event('input'));
+    // --- Consent checkbox ---
+    if (consentCheckbox) {
+        consentCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                estadoValidacion.consent = true;
+            } else {
+                estadoValidacion.consent = false;
             }
-            if (!estadoValidacion[campo.name]) { // Después de la revalidación, verifica si aún es inválido
-                validoFormulario = false;
-            }
+            actualizarBoton();
         });
+    }
 
-        // Finalmente, comprueba el estado general del formulario
-        if (!validoFormulario) {
-            event.preventDefault(); // Evita el envío si hay errores
-            alert('Por favor, complete todos los campos correctamente.'); // Mensaje genérico
+    // --- Envío del formulario ---
+    formulario.addEventListener('submit', function(event) {
+        // Revalidar todo por seguridad
+        // Nombres y apellidos
+        if (!nombresInput || nombresInput.value.trim().length < 3) {
+            mostrarError(nombresError, 'Debe tener al menos 3 caracteres');
+            estadoValidacion.nombres = false;
+            if (nombresInput) marcarCampoVisual(nombresInput, false);
         }
+        if (!apellidosInput || apellidosInput.value.trim().length < 3) {
+            mostrarError(apellidosError, 'Debe tener al menos 3 caracteres');
+            estadoValidacion.apellidos = false;
+            if (apellidosInput) marcarCampoVisual(apellidosInput, false);
+        }
+
+        // Tipo Id
+        if (!tipoIdSelect || tipoIdSelect.value === "") {
+            mostrarError(tipoIdError, 'Seleccione un tipo de identificación.');
+            estadoValidacion.tipoId = false;
+            if (tipoIdSelect) tipoIdSelect.classList.add('input-error');
+        }
+
+        // Numero ID (revalidar)
+        if (!numeroIdInput || numeroIdInput.value.trim() === "") {
+            mostrarError(numeroIdError, 'El número de identificación es obligatorio.');
+            estadoValidacion.numeroId = false;
+            if (numeroIdInput) marcarCampoVisual(numeroIdInput, false);
+        }
+
+        // Email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput || !emailRegex.test(emailInput.value.trim())) {
+            mostrarError(emailError, 'Formato de correo inválido');
+            estadoValidacion.email = false;
+            if (emailInput) marcarCampoVisual(emailInput, false);
+        }
+
+        // Password
+        if (!passwordInput || passwordInput.value.length < 8) {
+            mostrarError(claveError, 'Debe tener al menos 8 caracteres');
+            estadoValidacion.password = false;
+            if (passwordInput) marcarCampoVisual(passwordInput, false);
+        }
+
+        // Consent
+        if (!consentCheckbox || !consentCheckbox.checked) {
+            alert('Debes aceptar la Política de Privacidad para crear la cuenta.');
+            estadoValidacion.consent = false;
+        }
+
+        // Si alguno no válido, evitar submit
+        const todoValido = Object.values(estadoValidacion).every(v => v === true);
+        if (!todoValido) {
+            event.preventDefault();
+            alert('Por favor, complete correctamente todos los campos antes de continuar.');
+            actualizarBoton();
+            return false;
+        }
+
+        // si todo ok, el formulario se enviará normalmente (server-side hará más validaciones)
     });
 
-    // --- FUNCIONES AUXILIARES (sin cambios significativos, se mantienen como estaban) ---
-
-    function mostrarError(id, mensaje) {
-        const el = document.getElementById(id);
-        if (el) { // Asegura que el elemento existe antes de manipularlo
-            el.textContent = mensaje;
-            el.style.display = 'block';
-        }
-    }
-
-    function ocultarMensaje(id) {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-    }
-
-    function marcarCampo(campo, esValido) {
-        // Solo actualiza el estado y las clases visuales, no dispara un alert o preventDefault aquí
-        estadoValidacion[campo.name] = esValido;
-        campo.classList.toggle('valido', esValido);
-        campo.classList.toggle('invalido', !esValido);
-        actualizarBoton();
-    }
-
-    function actualizarBoton() {
-        const todoValido = Object.values(estadoValidacion).every((v) => v);
-        btnEnviar.disabled = !todoValido;
-    }
-
-    // --- FORTALEZA DE CONTRASEÑA ---
-
+    // --- Fortaleza de password (misma lógica con ajuste de niveles) ---
     function calcularFortalezaPassword(password) {
         let puntos = 0;
         if (password.length >= 8) puntos++;
@@ -242,23 +301,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (/[0-9]/.test(password)) puntos++;
         if (/[^A-Za-z0-9]/.test(password)) puntos++;
 
+        // Mapear puntos a niveles 0-4
+        let nivel = 0;
+        if (puntos <= 1) nivel = 0;
+        else if (puntos <= 3) nivel = 1;
+        else if (puntos === 4) nivel = 2;
+        else if (puntos === 5) nivel = 3;
+        else nivel = 4;
+
         const niveles = ['muy débil', 'débil', 'media', 'fuerte', 'muy fuerte'];
-        const nivel = Math.min(Math.floor(puntos / 1.2), 4); // Asegura que el nivel no exceda el índice del array
         return { nivel, texto: niveles[nivel], puntos };
     }
 
     function actualizarBarraFortaleza(fortaleza) {
-        const barra = document.getElementById('strengthBar');
-        const texto = document.getElementById('passwordStrengthText');
-
-        if (barra && texto) { // Asegura que los elementos existen
-            const clases = ['weak', 'weak', 'medium', 'strong', 'very-strong'];
-            barra.className = 'password-strength ' + clases[fortaleza.nivel];
-
-            texto.textContent = `Fortaleza: ${fortaleza.texto}`;
-        }
+        if (!strengthBar || !passwordStrengthText) return;
+        const clases = ['very-weak', 'weak', 'medium', 'strong', 'very-strong'];
+        // Quitar clases previas
+        strengthBar.className = 'password-strength ' + clases[fortaleza.nivel];
+        passwordStrengthText.textContent = `Fortaleza: ${fortaleza.texto}`;
     }
 
-    // Inicializar estado del botón al cargar la página
+    // Inicializar (por si el formulario tiene datos precargados)
+    // Forzar validaciones iniciales
+    if (nombresInput) nombresInput.dispatchEvent(new Event('input'));
+    if (apellidosInput) apellidosInput.dispatchEvent(new Event('input'));
+    if (emailInput) emailInput.dispatchEvent(new Event('input'));
+    if (passwordInput) passwordInput.dispatchEvent(new Event('input'));
+    if (numeroIdInput) numeroIdInput.dispatchEvent(new Event('input'));
+    if (tipoIdSelect) tipoIdSelect.dispatchEvent(new Event('change'));
+    if (consentCheckbox) consentCheckbox.dispatchEvent(new Event('change'));
+
     actualizarBoton();
 });

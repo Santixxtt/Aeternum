@@ -7,23 +7,22 @@ window.addEventListener('scroll', function () {
     }
 });
 
-// Menu Celular
+// Menú para celular
+const menuIcon = document.getElementById('menu-icon');
+const navMenu = document.getElementById('nav-menu');
 
-  const menuIcon = document.getElementById('menu-icon');
-  const navMenu = document.getElementById('nav-menu');
+let menuOpen = false;
 
-  let menuOpen = false;
-
-  menuIcon.addEventListener('click', () => {
+menuIcon.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     menuOpen = !menuOpen;
 
     // Cambiar ícono
     if (menuOpen) {
-      menuIcon.classList.remove('bx-menu');
-      menuIcon.classList.add('bx-menu-alt-right');
+        menuIcon.classList.remove('bx-menu');
+        menuIcon.classList.add('bx-menu-alt-right');
     } else {
-      menuIcon.classList.remove('bx-menu-alt-right  ');
-      menuIcon.classList.add('bx-menu');
+        menuIcon.classList.remove('bx-menu-alt-right'); 
+        menuIcon.classList.add('bx-menu');
     }
-  });
+});

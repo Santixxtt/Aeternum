@@ -128,7 +128,7 @@
                         <div class="footer-section">
                             <h3>Privacidad</h3>
                             <ul>
-                                <li><a href="#">Política de Privacidad</a></li>
+                                <li><a href="../../public/politica_privacidad.html">Política de Privacidad</a></li>
                                 <li><a href="#">Términos de Servicio</a></li>
                                 <li><a href="#">Ayuda</a></li>
                             </ul>

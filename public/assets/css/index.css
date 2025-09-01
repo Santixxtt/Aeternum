@@ -4,6 +4,7 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    width: 100%;
 }
 .header {
   background-color: #ffffff;
@@ -258,19 +259,19 @@ body {
 }
 
 .footer {
-  background-color: #000;
-  color: #fff;
-  padding: 30px 20px 0;
-  width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 30px 20px 0;
+    width: 100%;
 }
 
 .footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
 }
 
 .footer-section h3 {
@@ -308,12 +309,14 @@ body {
   font-size: 0.85em;
   color: #aaa;
 }
+
 @media (max-width: 768px) {
 
   .header-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+    padding: 0 90px;
   }
 
   .nav ul {
@@ -389,6 +392,7 @@ body {
   font-size: 2rem;
   color: #333;
   cursor: pointer;
+  padding: 0 20px;
 }
 
 @media (max-width: 768px) {
@@ -421,55 +425,100 @@ body {
   vertical-align: middle;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  
-  .header-content {
-    padding: 0 20px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+@media (max-width: 768px) {
+    /* La cabecera ya no se apila, se mantiene en fila */
+    .header-content {
+        flex-direction: row; /* Asegura que estén en fila */
+        justify-content: space-between; /* Alinea los elementos a los extremos */
+        align-items: center; /* Centra verticalmente los elementos */
+        padding: 0 20px;
+    }
 
-  .nav ul {
-    gap: 40px;
-  }
+    /* Oculta la navegación principal en móviles */
+    .nav {
+        display: none;
+        position: absolute; /* Permite que el menú se deslice sobre el contenido */
+        top: 60px; /* Ajusta según la altura de tu header */
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 900; /* Menor que el header sticky para evitar conflictos */
+        padding-top: 20px;
+    }
+    
+    .nav.active {
+        display: block;
+    }
 
-  .hero h1 {
-    font-size: 2.2em;
-  }
+    .nav ul {
+        flex-direction: column;
+        align-items: center; /* Centra los elementos del menú */
+        padding: 0;
+    }
 
-  .hero p {
-    font-size: 1.3em;
-    margin: 20px;
-  }
+    .nav ul li {
+        margin: 10px 0;
+        margin-left: 0;
+    }
 
-  .img1 {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
+    .nav-toggle {
+        display: block; /* Muestra el icono del menú de hamburguesa */
+    }
 
-  .features {
-    padding: 30px 20px;
-    margin: 0;
-  }
+    .logo {
+        max-width: 150px; /* Ajusta el tamaño del logo para móviles */
+    }
 
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr); 
-  }
+    .user-icon {
+        display: none; /* Oculta el icono de usuario si es parte de la navegación principal */
+    }
 
-  .footer-content {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-}
-.cta-button {
-  text-align: center;
-  display: block;
-  margin: 0 auto;
-  width: fit-content;
-}
-.nav a i {
-    margin-right: 8px;
-    font-size: 1.2rem;
-    vertical-align: middle;
+    /* Ajustes para el resto de la página */
+    .img1 {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .hero h1 {
+        font-size: 1.8em;
+        padding: 0 10px;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+        margin: 20px 10px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .features {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 20px 10px;
+    }
+
+    .features p {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        padding: 20px 10px;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+        font-size: 0.75em;
+    }
 }
