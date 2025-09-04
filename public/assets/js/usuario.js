@@ -229,7 +229,6 @@ document.addEventListener('keypress', function(e) {
 });
 
 // Menú para celular
-
 const menuIcon = document.getElementById('menu-icon');
 const navMenu = document.getElementById('nav-menu');
 
@@ -242,7 +241,7 @@ menuIcon.addEventListener('click', () => {
     // Cambiar ícono
     if (menuOpen) {
         menuIcon.classList.remove('bx-menu');
-        menuIcon.classList.add('bx-menu-alt-right');
+        menuIcon.classList.add('bx-menu-alt-right'); 
     } else {
         menuIcon.classList.remove('bx-menu-alt-right'); 
         menuIcon.classList.add('bx-menu');

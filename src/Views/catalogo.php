@@ -1,36 +1,13 @@
-    <?php
-    session_start();
-    if (!isset($_SESSION['id_usuario'])) {
-        header("Location: ../../public/index.html");
-        exit;
-    }
+<?php
+session_start();
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../../public/index.html");
+ exit;
+}
 
-    include("../../config/conexion.php");
+include("../../config/conexion.php");
 
-    $usuario_id = $_SESSION['id_usuario'];
-
-    // Consulta para obtener los libros en la lista de deseos del usuario por id
-    $sql = "SELECT libros.id, libros.titulo, libros.cover_id, libros.openlibrary_key, autores.nombre AS autor
-            FROM lista_deseos
-            INNER JOIN libros ON lista_deseos.libro_id = libros.id
-            INNER JOIN autores ON libros.autor_id = autores.id
-            WHERE lista_deseos.usuario_id = ?";
-
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-
-    $libros = [];
-    while ($row = $result->fetch_assoc()) {
-        $libros[] = $row;
-    }
-
-    $stmt->close();
-    $conexion->close();
-    ?>
-
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,12 +15,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/assets/css/usuario.css">
+    <link rel="stylesheet" href="../../public/assets/css/catalogo.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     
-    <title>Aeternum - Tu Biblioteca Digital</title>
+    <title>Catalogo</title>
 </head>
 
 <body>
@@ -60,13 +37,13 @@
 
                 <nav class="nav" id="nav-menu" data-aos="fade-left" data-aos-duration="800">
                     <ul id="menuList">
-                        <li><a href="../Views/usuario.php">Inicio</a></li>
-                        <li><a href="../Views/catalogo.php">Catálogo</a></li>
-                        <li><a href="lista_deseos.php">Lista de Deseos</a></li>
+                        <li><a href="usuario.php">Inicio</a></li>
+                        <li><a href="catalogo.php">Catálogo</a></li>
+                        <li><a href="../Models/lista_deseos.php">Lista de Deseos</a></li>
                         <li>
                         <div class="search-bar">
-                            <i class='bxr bx-search-alt'></i>
-                            <input type="text" id="searchInput" placeholder="Buscar libros...">
+                            <i class='bx bx-search-alt'></i>
+                            <input type="text" id="catalogoSearch" placeholder="Buscar en catálogo...">
                         </div>
                         </li>
                         <li class="user-menu">
@@ -92,43 +69,23 @@
             </div>
         </div>
     
-        <div id="resultados" class="search-fullscreen"></div>
-        
-        <div class="titulo-con-asterisco">
-                <span class="span-asterisco">*</span>
-                <h2>Mi Lista de Deseos</h2>
+        <section id="catalogo">
+            <div class="catalogo-filtros">
+                <select id="filtroAutor">
+                    <option value="">Todos los autores</option>
+                </select>
+                <select id="filtroAnio">
+                    <option value="">Todos los años</option>
+                </select>
             </div>
-            <p class="descripcion">Aquí puedes ver todos los libros que has añadido a tu lista de deseos. Puedes eliminarlos si ya no te interesan.</p><br>
-        <?php if (count($libros) > 0): ?>
-    <div class="deseos-grid">
-    <?php foreach ($libros as $libro): ?>
-        <div class="book-card">
-            <img src="https://covers.openlibrary.org/b/id/<?php echo $libro['cover_id']; ?>-M.jpg" alt="<?php echo htmlspecialchars($libro['titulo']); ?>">
-            <h4><?php echo htmlspecialchars($libro['titulo']); ?></h4>
-            <p><?php echo htmlspecialchars($libro['autor']); ?></p>
-            <div class="book-actions">
-                <div class="top-actions">
-                    <button class="action-button remove-button star-active" data-id="<?php echo $libro['id']; ?>" title="Quitar de Lista de Deseos">
-                        <i class='bx bxs-star'></i>
-                    </button>
-                        <a href="https://openlibrary.org<?php echo $libro['openlibrary_key']; ?>/pdf" class="action-button" target="_blank" title="Descargar PDF">
-                            <i class='bxr bx-arrow-down-stroke-circle'></i>
-                        </a>
+            <div id="catalogo-grid" class="catalogo-grid"></div>
+            <div id="catalogo-grid" class="catalogo-grid"></div>
+            <div id="catalogo-paginacion" class="catalogo-paginacion"></div>
 
-                </div>
-                <a href="https://openlibrary.org<?php echo $libro['openlibrary_key']; ?>/borrow" target="_blank" class="action-button loan-button" title="Pedir Préstamo">
-                    Préstamelo
-                </a>
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div>
+        </section>
 
-<?php else: ?>
-    <p>No tienes libros en tu lista de deseos.</p>
-<?php endif; ?>
-    
-           <footer class="footer" id="footer">
+       
+            <footer class="footer" id="footer">
                 <div class="footer-content">
                     <div class="footer-section" data-aos="fade-up" data-aos-duration="800">
                         <h3>AETERNUM.</h3>
@@ -180,7 +137,6 @@
                 // Llama a la función al cargar el DOM
                 document.addEventListener('DOMContentLoaded', setFooterYear);
             </script>
-            <script src="../../public/assets/js/usuario.js"></script>
-            <script src="../../public/assets/js/recomendaciones.js"></script>
+            <script src="../../public/assets/js/catalogo.js"></script>
     </body>
 </html>

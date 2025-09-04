@@ -538,6 +538,8 @@ body {
     -webkit-backdrop-filter: blur(5px); /* Compatibilidad con Safari */
     justify-content: center;
     align-items: center;
+    padding: 1rem; /* evita que el modal quede pegado a los bordes */
+    box-sizing: border-box;
 }
 
 .modal-content {
@@ -552,6 +554,7 @@ body {
     text-align: center;
     transform: scale(0.95);
     transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
 .modal-content h2 {
@@ -612,4 +615,46 @@ body {
 
 .modal-content-animated {
     transform: scale(1);
+}
+
+/* 🔹 Responsividad */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content p {
+        font-size: 0.95rem;
+    }
+
+    .accept-button {
+        width: 100%; /* botón ocupa todo el ancho en móvil */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal-content p {
+        font-size: 0.9rem;
+    }
+
+    .close-button {
+        font-size: 24px;
+        top: 8px;
+        right: 10px;
+    }
 }

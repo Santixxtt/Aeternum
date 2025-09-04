@@ -138,3 +138,26 @@ body {
         padding: 30px;
     }
 }
+
+.alert-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+.alert-message {
+    background: #ffefef;
+    color: #d00;
+}
+.alert-message:has(.success) {
+    background: #e6ffef;
+    color: #080;
+}
+
+@media (max-width: 480px) {
+    .alert-message {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+}

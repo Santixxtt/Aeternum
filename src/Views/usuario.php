@@ -20,6 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/assets/css/usuario.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     
     <title>Aeternum - Tu Biblioteca Digital</title>
@@ -40,7 +41,7 @@
                 <nav class="nav" id="nav-menu" data-aos="fade-left" data-aos-duration="800">
                     <ul id="menuList">
                         <li><a href="usuario.php">Inicio</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="catalogo.php">Catálogo</a></li>
                         <li><a href="../Models/lista_deseos.php">Lista de Deseos</a></li>
                         <li>
                         <div class="search-bar">
@@ -90,6 +91,7 @@
 
                     <div class="book-grid" id="recomendados-grid">
                         </div>
+                        
                 </section>
             </div>
             <footer class="footer" id="footer">

@@ -1,0 +1,7 @@
+2025-09-03T05:10:01+02:00 - SESSION user_id=15
+2025-09-03T05:10:01+02:00 - POST: {"libro_key":"\/works\/OL19870W","titulo":"The Jungle Book","autor":"Rudyard Kipling","cover_id":"3344204"}
+2025-09-03T05:10:01+02:00 - Parsed: libro_key=/works/OL19870W, titulo=The Jungle Book, autor=Rudyard Kipling, cover_i=3344204, desc_len=0
+2025-09-03T05:10:01+02:00 - autor inserted id=50
+2025-09-03T05:10:01+02:00 - libro found id=16
+2025-09-03T05:10:01+02:00 - prepare lista insert failed (with created_at): Unknown column 'created_at' in 'field list'
+2025-09-03T05:10:01+02:00 - inserted lista_deseos fallback2
