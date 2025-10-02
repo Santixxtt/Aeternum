@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import loginImage from "../assets/img/login.jpg";
 import "../assets/css/login-module.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
   const [error, setError] = useState("");
@@ -38,14 +41,19 @@ const Login = () => {
       if (response.ok) {
         // Guardar token en localStorage
         localStorage.setItem("token", data.access_token);
+        localStorage.setItem("userRole", data.rol);
+        localStorage.setItem("userData", JSON.stringify(data.user));
 
         alert("Inicio de sesión exitoso");
-        console.log("Token recibido:", data.access_token);
+        // console.log("Token recibido:", data.access_token);
 
-        // Redirigir si quieres
-        // window.location.href = "/dashboard";
+         if (data.rol === "bibliotecario") {
+            navigate("/loyout_librarian/dashboard_librarian"); 
+        } else if (data.rol === "usuario") {
+            navigate("/loyout_user/dashboard_user"); 
+        } 
       } else {
-        setError(data.message || "Error al iniciar sesión");
+        setError(data.detail || "Error al iniciar sesión. Intentalo de nuevo."); 
       }
     } catch (err) {
       console.error("Error de conexión:", err);
@@ -60,8 +68,8 @@ const Login = () => {
           <a href="/" className="login-back-button">
             <i className="bx bx-left-arrow-alt"></i>
           </a>
-          <h1>Bienvenido</h1>
-          <p>Inicia sesión para continuar</p>
+          <h1>Inicio de Sesión</h1>
+          <p>Inicia sesión con tu cuenta de <strong>Aeternum.</strong></p>
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -70,7 +78,7 @@ const Login = () => {
               <label>Correo</label>
               <input
                 type="email"
-                placeholder="Correo electrónico"
+                placeholder="hey@tuemail.com"
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
               />
@@ -80,7 +88,7 @@ const Login = () => {
               <label>Contraseña</label>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="********"
+                placeholder="Escribe tu contraseña aquí"
                 value={clave}
                 onChange={(e) => setClave(e.target.value)}
               />
@@ -102,13 +110,13 @@ const Login = () => {
               ¿No tienes cuenta? <a href="#">Regístrate</a>
             </p>
             <p>
-              ¿Se te olvido la clave? <a href="#">Recuperala</a>
+              ¿Se te olvido la contraseña? <a href="#">¡Recuperala!</a>
             </p>
           </div>
         </div>
 
         <div className="login-image-section">
-          <img src="../assets/img/login.jpg" alt="Login" />
+          <img src={loginImage} alt="Login" />
         </div>
       </div>
     </div>

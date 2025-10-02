@@ -1,6 +1,7 @@
 from app.config.database import get_cursor
 from datetime import datetime, timedelta
-
+from app.config.database import get_cursor  # asumiendo que tienes un archivo database.py con la sesión
+from app.schemas import user_schema
 
 def get_user_by_email(email: str):
     mydb, cursor = get_cursor()
@@ -106,3 +107,11 @@ def reset_login_attempts(user_id: int):
     mydb.commit()
     cursor.close()
     mydb.close()
+
+def get_user_by_id(user_id: int):
+    mydb, cursor = get_cursor()
+    cursor.execute("SELECT id, nombre, apellido, correo, rol FROM usuarios WHERE id = %s", (user_id,))
+    user = cursor.fetchone()
+    cursor.close()
+    mydb.close()
+    return user

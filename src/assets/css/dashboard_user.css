@@ -1,0 +1,274 @@
+/* =============================
+   HEADER
+============================= */
+.dashboard-user .header {
+  background-color: #ffffff;
+  padding: 10px 0;
+  width: 100%;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  position: relative;
+}
+
+.dashboard-user .header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-user .header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0px;
+}
+
+.dashboard-user .logo img {
+  height: 50px;
+}
+
+/* Nav */
+.dashboard-user .nav ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-user .nav a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dashboard-user .nav a:hover {
+  color: #B6407D;
+}
+
+/* Search Bar */
+.dashboard-user .search-bar {
+  display: flex;
+  align-items: center;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+.dashboard-user .search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #000;
+}
+
+.dashboard-user .search-bar button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.dashboard-user .search-bar button:hover {
+  color: #B6407D;
+}
+
+/* User menu */
+.dashboard-user .user-menu {
+  position: relative;
+}
+
+.dashboard-user .user-icon {
+  font-size: 32px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.dashboard-user .user-icon:hover {
+  color: #B6407D;
+  transform: scale(1.1);
+}
+
+.dashboard-user .dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  animation: fadeIn 0.2s ease;
+}
+
+.dashboard-user .dropdown li {
+  list-style: none;
+}
+
+.dashboard-user .dropdown a, 
+.dashboard-user .dropdown li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dashboard-user .dropdown a:hover,
+.dashboard-user .dropdown li:hover {
+  background: #f5f5f5;
+  color: #B6407D;
+}
+
+/* =============================
+   HERO
+============================= */
+.dashboard-user .dashboard-hero {
+  padding: 100px 20px 40px;
+  text-align: center;
+  background: radial-gradient(circle at 10% 20%, rgba(255,0,150,0.2), transparent 40%),
+              radial-gradient(circle at 80% 30%, rgba(0,200,255,0.2), transparent 40%),
+              radial-gradient(circle at 50% 80%, rgba(255,255,0,0.15), transparent 40%),
+              #000;
+  background-size: 200% 200%;
+  animation: aurora 15s ease infinite;
+  color: #fff;
+}
+
+@keyframes aurora {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+
+.dashboard-user .dashboard-hero h1 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.dashboard-user .dashboard-hero p {
+  font-size: 1.4em;
+  padding: 0 50px;
+  margin-bottom: 30px;
+}
+
+/* =============================
+   BOOK LISTS (Resultados y Recomendados)
+============================= */
+.dashboard-user .dashboard-book-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+  padding: 30px 90px;
+}
+
+.dashboard-user .dashboard-book-list h2{
+  justify-content: center;
+  margin-bottom: 90px;
+}
+
+/* Book Card */
+.dashboard-user .book-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.dashboard-user .book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.dashboard-user .book-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.dashboard-user .book-card h3 {
+  font-size: 1em;
+  margin: 8px 0;
+  font-weight: 600;
+}
+
+.dashboard-user .book-card p {
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Acciones */
+.dashboard-user .card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dashboard-user .card-actions button {
+  border: none;
+  background: #B6407D;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #333;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-user .card-actions .btn-borrow:hover {
+  background: #ef53ec;
+  color: #fff;
+}
+
+.dashboard-user .card-actions .btn-wishlist:hover {
+  background: #ef53ec;
+  color: #fff;
+}
+
+/* =============================
+   LOADER
+============================= */
+.dashboard-user .loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #B6407D;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* =============================
+   ANIMACIONES
+============================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

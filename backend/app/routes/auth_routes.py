@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from app.schemas.user_schema import UserLogin, UserRegister
 from app.models import user_model
 
-
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 MAX_ATTEMPTS = 3
@@ -15,11 +14,11 @@ LOCK_TIME_MINUTES = 5
 def login(user_data: UserLogin):
     user = get_user_by_email(user_data.correo)
     if not user:
-        raise HTTPException(status_code=401, detail="Credenciales inválidas")
-
+        raise HTTPException(status_code=401, detail="El correo no está registrado, revise nuevamente o cree una cuenta.")
     #  Verificar bloqueo
     if user["bloqueado_hasta"] and datetime.now() < user["bloqueado_hasta"]:
         raise HTTPException(status_code=403, detail="Cuenta bloqueada. Intenta más tarde.")
+    
 
     attempts = user.get("intentos_fallidos") if isinstance(user, dict) else user["intentos_fallidos"]
     attempts = int(attempts or 0)
@@ -41,7 +40,19 @@ def login(user_data: UserLogin):
     token = create_access_token(
         data={"sub": str(user["id"]), "correo": user["correo"], "rol": user["rol"]}
     )
-    return {"access_token": token, "token_type": "bearer"}
+    safe_user = {
+    "id": user["id"],
+    "nombre": user["nombre"],
+    "apellido": user["apellido"],
+    "correo": user["correo"],
+    "rol": user["rol"]
+    }
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "rol": user["rol"]
+    }
+
 
 
 @router.post("/register")

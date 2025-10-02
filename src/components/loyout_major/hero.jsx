@@ -1,4 +1,5 @@
 import imgHome from "../../assets/img/img-home.jpg";
+import Login from "../login";
 
 function Hero() {
   return (
@@ -12,7 +13,7 @@ function Hero() {
           fantásticos de la literatura y el conocimiento. ¡Te invitamos a
           sumergirte en nuestros catálogos y disfrutar de tus lecturas!
         </p>
-        <a href="login.php" className="cta-button" data-aos="zoom-in">
+        <a href="../login" className="cta-button" data-aos="zoom-in">
           Únete ahora
         </a><br /><br /><br />  
       </div>

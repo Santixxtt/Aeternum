@@ -3,28 +3,11 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./assets/css/index.css";
-
-import Header from "./components/loyout_major/header";
-import Hero from "./components/loyout_major/hero";
-import Features from "./components/loyout_major/features";
-import BookCount from "./components/loyout_major/BookCount";
-import Footer from "./components/loyout_reusable/footer";
-import ConsentModal from "./components/loyout_major/ConsentModal";
-import Bottomnav from "./components/loyout_major/Bottomnav";
-import Login from "./components/login"; // 👈 tu login
-
-function Home({ isMobile }) {
-  return (
-    <>
-      {isMobile ? <Bottomnav /> : <Header />}
-      <Hero />
-      <Features />
-      <BookCount />
-      <Footer />
-      <ConsentModal />
-    </>
-  );
-}
+import "./assets/css/dashboard_user.css";
+import Home from "./components/index"; 
+import Login from "./components/login";
+import DashboardUser from "./components/loyout_user/dashboard_user";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -40,11 +23,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta principal */}
         <Route path="/" element={<Home isMobile={isMobile} />} />
-
-        {/* Ruta de login */}
         <Route path="/login" element={<Login />} />
+        <Route path="/loyout_user/dashboard_user" element={<DashboardUser />} />
       </Routes>
     </Router>
   );
