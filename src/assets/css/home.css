@@ -1,0 +1,583 @@
+*{
+    font-family: poppins, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    width: 100%;
+}
+
+/* Header (Barra de Navegación Superior) */
+.header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+    transition: all 0.4s ease;
+    z-index: 1000;
+}
+
+/* Estilo para el Header al volverse "sticky" */
+.header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    transition: all 0.3s ease;
+}
+
+/* Logo */
+.logo {
+    /* Combinación de estilos: */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #B6407D;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    
+    /* Propiedades para el contenedor del logo (si es un div/a con imagen): */
+    max-width: 250px; /* Reducido para mejor control en desktop */
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    /* Asegurar que la imagen dentro del logo escale correctamente */
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Navegación de Escritorio */
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav ul li {
+    margin-left: 40px; /* Reducido de 80px para una mejor distribución */
+    display: flex;
+    align-items: center;
+}
+
+.nav ul li:first-child {
+    margin-left: 0;
+}
+
+/* Estilos de la navegación general (NO aplica al botón de login) */
+.nav ul li a { /* <-- ¡Más específico! Ahora solo aplica a <a> dentro de <li> dentro de <ul> */
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+    color: #B6407D;
+}
+
+/* Botón de Login */
+.login-button {
+    background-color: #f2f2f2;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Asegurar color inicial para texto y/o ícono */
+    color: black !important; /* Added !important as a safety net, but shouldn't be needed with new specificity */
+}
+
+.login-button:hover {
+    background-color: #B6407D;
+    color: white !important; 
+    transition: 0.3s;
+}
+
+/* Estilo para el ícono dentro del botón (ASEGURA que el ícono sea blanco en hover) */
+.login-button:hover i,
+.login-button:hover .bx {
+    color: white; 
+}
+
+.point {
+    color: #000000;
+    font-size: 2em;
+}
+
+/* El selector bx bx-user-circle es incorrecto. Debe ser: */
+.bx-user-circle {
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Sección Hero */
+.hero {
+    background-color: #000000;
+    padding: 100px 10px;
+    /* Evita el scrollbar horizontal en pantallas pequeñas */
+    overflow-x: hidden; 
+}
+
+.hero-content {
+    max-width: 1200px; /* Aumentado a 1200px para centrar mejor con el header */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 2.8em; /* Ligeramente más grande para impacto */
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: rgb(180, 180, 180);
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto 40px auto; /* Centrar el párrafo */
+}
+
+/* Imagen del Hero (corrección del margin-left que rompía el diseño) */
+.img1 {
+    width: 100%; /* Asegura que la imagen sea full-width en su contenedor */
+    max-width: 1200px; /* Limita el tamaño máximo */
+    height: auto; /* Mantiene la proporción */
+    border-radius: 20px;
+    margin: 0 auto; /* Centra la imagen */
+    display: block; /* Necesario para que margin auto funcione */
+}
+
+/* Botón CTA */
+.cta-button {
+    display: inline-block;
+    background-image: linear-gradient(to right, #EF53EC, #993A90);
+    color: #000000;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 60px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px); /* Efecto de elevación sutil */
+    box-shadow: 0 5px 15px rgba(239, 83, 236, 0.4);
+}
+
+/* Sección de Características (Features) */
+.features {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+.features h2 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.features p {
+    font-size: 1.1rem;
+    color: #515151;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px; /* Limita el ancho del grid */
+    margin: 30px auto 0 auto; /* Centra el grid */
+}
+
+.feature-item {
+    background-color: #ffffff; /* Cambiado a blanco para contraste sutil */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.feature-item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.span-box {
+    font-size: 3.5rem;
+    color: #B6407D;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.feature-item i {
+    color: #e91e63;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.feature-item h3 {
+    font-size: 1.3em;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 0.95em;
+    color: #666;
+    margin: 0; /* Reiniciar el margen del párrafo de features */
+}
+
+/* Sección de Conteo de Libros (Book Count) */
+.book-count {
+    background-color: #e3e3e3;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.book-count h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.book-count p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 30px 20px 0;
+    width: 100%;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Min-width reducido para móviles */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+
+.footer-section h3 {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #B6407D;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding: 15px 20px;
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+/* Barra de Navegación Inferior (Móvil) - Corregida */
+.bottom-nav {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px; /* Limitar el ancho para que no se estire demasiado */
+    background: #fff;
+    border-radius: 20px;
+    display: none; /* Por defecto OCULTA en todos lados */
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+/* Cada ítem de la barra inferior */
+.bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #555; /* Color por defecto más suave */
+    font-size: 0.75rem; /* Letra más pequeña */
+    flex: 1;
+    padding: 6px 0;
+    margin: 0 4px; /* Espacio entre items */
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Íconos de la barra inferior */
+.bottom-nav .nav-item i {
+    font-size: 1.4rem;
+    margin-bottom: 3px;
+}
+
+/* Activo de la barra inferior */
+.bottom-nav .nav-item.active {
+    color: #B6407D; /* Color de marca */
+    background: rgba(182, 64, 125, 0.1);
+    border-radius: 15px; /* Ajuste del radio */
+}
+
+/* Estilos para el Modal (sin cambios importantes, solo limpieza) */
+.modal-container {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.show-modal {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.modal-content-animated {
+    transform: scale(1);
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+.accept-button {
+    background-color: #B6407D;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.accept-button:hover {
+    background-color: #EF53EC;
+    transform: scale(1.05);
+}
+
+
+/* ======================================= */
+/* MEDIA QUERIES PARA RESPONSIVE DESIGN */
+/* ======================================= */
+
+/* Teléfonos (Max-width 767px) */
+@media (max-width: 767px) { 
+    
+    /* Header: Ocultar la navegación de escritorio */
+    .header .nav {
+        display: none;
+    }
+    
+    /* Header: Ajustes del contenido para móviles */
+    .header-content {
+        padding: 0 15px; /* Un poco menos de padding */
+    }
+
+    /* Logo: Ajuste de tamaño */
+    .logo {
+        font-size: 1.2em;
+        max-width: 100px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 60px 10px 40px 10px; /* Reducción de padding */
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+
+    .cta-button {
+        padding: 12px 25px; /* Botón un poco más pequeño */
+    }
+
+    /* Imagen del Hero: margin-left fue la fuente del scroll horizontal */
+    .img1 {
+        width: 100%;
+        height: auto;
+        border-radius: 10px; /* Reducir radio para móviles */
+        margin: 0; /* Eliminar margen que causa problemas */
+    }
+
+    /* Features Section */
+    .features {
+        padding: 50px 10px;
+    }
+    
+    .features p {
+        font-size: 1rem;
+        margin: 0 auto 30px auto;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr; /* Columna única */
+        gap: 20px;
+    }
+    
+    .feature-item {
+        padding: 20px;
+    }
+
+    /* Book Count */
+    .book-count {
+        padding: 50px 10px;
+    }
+
+    .book-count h2 {
+        font-size: 2em;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr; /* Una columna */
+        gap: 20px;
+        padding: 20px 10px;
+    }
+
+    /* Mostrar la barra de navegación inferior */
+    .bottom-nav {
+        display: flex; 
+    }
+}
+
+/* Tabletas y Pantallas Medianas (Min-width 768px y Max-width 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Ocultar la barra inferior en tabletas y escritorio */
+    .bottom-nav {
+        display: none;
+    }
+
+    .header-content {
+        padding: 0 30px;
+    }
+
+    /* Ajustar el espaciado de la nav en tabletas */
+    .nav ul li {
+        margin-left: 30px;
+    }
+
+    /* Grid de features a 2 columnas para tabletas */
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+    }
+    
+    /* Ajuste de la imagen hero */
+    .img1 {
+        margin-left: 0; /* Asegurar que no hay un margin fijo */
+    }
+}
+
+/* Pantallas Grandes de Escritorio (Min-width 1025px) */
+@media (min-width: 1025px) {
+    /* Asegurar que la nav de escritorio esté visible */
+    .header .nav {
+        display: block;
+    }
+
+    /* Ocultar la barra inferior en escritorio */
+    .bottom-nav {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 3.2em;
+    }
+    
+    .hero p {
+        font-size: 1.3em;
+    }
+}

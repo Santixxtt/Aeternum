@@ -1,8 +1,13 @@
 import { useState } from "react";
 import BookModal from "./BookModal";
+import defaultImage from "../../assets/img/book-placeholder.png";
 
 const BookCard = ({ book, onAddToWishlist }) => {
   const [open, setOpen] = useState(false);
+
+  const initialSrc = book.cover_i
+    ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
+    : defaultImage;
 
   return (
     <>
@@ -12,12 +17,13 @@ const BookCard = ({ book, onAddToWishlist }) => {
         className="dashboard-user book-card cursor-pointer"
       >
         <img
-          src={
-            book.cover_i
-              ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
-              : "https://via.placeholder.com/150x220?text=Sin+Portada"
-          }
+          src={initialSrc}
           alt={book.title}
+          onError={(e) => {
+            if (e.target.src !== defaultImage) {
+              e.target.src = defaultImage; // Si falla la imagen de la API, usa la imagen por defecto
+            }
+          }}
         />
         <h3>{book.title}</h3>
         <p>{book.author_name?.[0] || "Autor desconocido"}</p>

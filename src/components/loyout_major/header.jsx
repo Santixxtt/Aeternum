@@ -1,8 +1,10 @@
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/aeternum_logo.png";
-import { Link } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const navbar = document.getElementById("navbar");
 
@@ -20,20 +22,34 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Función para navegar entre rutas
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <header className="header" id="navbar">
       <div className="header-content">
-        <div className="logo">
-             <img src={logo} alt="logo" />
-           </div>
+        {/* LOGO */}
+        <div className="logo" onClick={() => handleNavigate("/")}>
+          <img src={logo} alt="Logo Aeternum" />
+        </div>
+
+        {/* NAVEGACIÓN */}
         <nav className="nav">
           <ul>
-            <li><a href="#"><i className="bx bx-home"></i> Inicio</a></li>
-            <li><a href="#"><i className="bx bx-book"></i> Catalogo</a></li>
-            <li><a href="#"><i className="bx bx-phone"></i> Contacto</a></li>
+            <li onClick={() => handleNavigate("/")}>
+              <i className="bx bx-home"></i> Inicio
+            </li>
+            <li onClick={() => handleNavigate("")}>
+              <i className="bx bx-book"></i> Catálogo
+            </li>
+            <li onClick={() => handleNavigate("")}>
+              <i className="bx bx-phone"></i> Contacto
+            </li>
             <li>
               <Link to="/login" className="login-button">
-                <i className="bx bx-user-circle"></i> Inicio de sesión
+                <i className="bx bx-user-circle"></i> Iniciar sesión
               </Link>
             </li>
           </ul>

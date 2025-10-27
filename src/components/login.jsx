@@ -66,7 +66,7 @@ const Login = () => {
       <div className="login-container">
         <div className="login-section">
           <a href="/" className="login-back-button">
-            <i className="bx bx-left-arrow-alt"></i>
+            <i className="bx bx-chevron-left"></i>
           </a>
           <h1>Inicio de Sesión</h1>
           <p>Inicia sesión con tu cuenta de <strong>Aeternum.</strong></p>
@@ -88,7 +88,7 @@ const Login = () => {
               <label>Contraseña</label>
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Escribe tu contraseña aquí"
+                placeholder="Escribe tu contraseña"
                 value={clave}
                 onChange={(e) => setClave(e.target.value)}
               />
@@ -107,10 +107,10 @@ const Login = () => {
 
           <div className="login-register-options">
             <p>
-              ¿No tienes cuenta? <a href="#">Regístrate</a>
+              ¿No tienes cuenta? <a href="./register">Regístrate</a>
             </p>
             <p>
-              ¿Se te olvido la contraseña? <a href="#">¡Recuperala!</a>
+              ¿Se te olvido la contraseña? <a href="./restablecer-contrasena">¡Recuperala!</a>
             </p>
           </div>
         </div>

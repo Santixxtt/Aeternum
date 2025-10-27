@@ -1,12 +1,31 @@
-import mysql.connector
+from contextlib import asynccontextmanager
+import aiomysql
 
-def get_cursor():
-    mydb = mysql.connector.connect(
-        host="localhost",
+pool = None
+
+async def init_db(app):
+    global pool
+    pool = await aiomysql.create_pool(
+        host="yamanote.proxy.rlwy.net",
+        port=28425,
         user="root",
-        password="",
-        database="aeternum"
+        password="yUHXDnqrMmGvNygnFHjRHiKnWhiJrXZF",
+        db="railway",
+        minsize=1,
+        maxsize=10,
     )
-    
-    cursor = mydb.cursor(dictionary=True) 
-    return mydb, cursor
+    print("✅ Pool de conexiones MySQL inicializado.")
+
+@asynccontextmanager
+async def get_cursor():
+    async with pool.acquire() as conn:
+        async with conn.cursor(aiomysql.DictCursor) as cursor:
+            yield conn, cursor
+
+async def close_db():
+    global pool
+    if pool is not None:
+        pool.close()
+        await pool.wait_closed()
+        pool = None
+        print("Pool de conexiones cerrado.")
