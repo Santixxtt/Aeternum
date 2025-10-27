@@ -25,7 +25,7 @@ El sistema está dirigido a **administradores**, encargados de la gestión de la
 - 🔹 **Íconos:** indican pasos o advertencias importantes.
 
 **Contacto de soporte:**  
-📧 aeternum.soporte@gmail.com  
+📧 aeternum538@gmail.com  
 💬 Chat interno disponible para soporte técnico en la interfaz administrativa.
 
 ---
@@ -57,4 +57,10 @@ El sistema puede ejecutarse en **Windows** y requiere una instalación previa de
 1. **Clonar el repositorio del proyecto:**
    ```bash
    git clone https://github.com/Santixxtt/Aeternum_new.git
-   cd Aeternum_new
+   cd Aeternum_new <-- Entra a la carpeta
+
+### ▶️ Ejecutar el proyecto en entorno local
+2. **Instalar tecnologias**
+   ```bash
+   npm install
+   pip install -r requerimes.txt
