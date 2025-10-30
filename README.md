@@ -1,66 +1,61 @@
-# 📘 Manual de Usuario – Librería **Aeternum**
+# Aeternum - Libreria Virtual
 
-El **Manual de Usuario de Librería Aeternum** es una guía práctica diseñada para orientar al usuario final —tanto administradores como lectores— en el uso correcto del sistema.  
-Su propósito es garantizar una experiencia **sencilla, clara y eficiente**, evitando el uso de lenguaje técnico innecesario.
-
-Este manual busca que el usuario pueda navegar, realizar préstamos, devoluciones y consultar el catálogo sin dificultad.
+Aeternum es una libreria virtual moderna que busca que los usuarios puedan leer o encontrar libros de manera facil, rapida y segura en un solo lugar, permitiendo a los libros públicos opción de descarga, tambien enfocandose en un entorno real donde se puedan hacer prestamos fisicos. Funcionando con React y FastAPI con varias capas de seguridad para que tus datos esten seguros.
 
 ---
 
-## 🧩 Componentes del Manual de Usuario
+## 🧩 Manual de Usuario
 
-### 🏠 ¡Bienvenido(a) a Librería Aeternum!
+1. ## Introducción
+   
+   Este manual describe cómo instalar y ejecutar la aplicación web *Aeternum*, desarrollada con **FastAPI** como backend y **React + Vite** como frontend, para que puedas       entender mejor como funciona y si quieres desplegarlo localmente. A continuación, detallaremos los requisitos previos y las instrucciones paso a paso para cada componente    de la aplicación.
+   
+2. ## 💻 Requisitos del Sistema
 
-Este sistema fue desarrollado como una herramienta digital para **gestionar libros, préstamos y devoluciones** de manera moderna y automatizada.
+   Para garantizar un funcionamiento óptimo de **Librería Aeternum**, se recomienda contar con lo siguiente:
+   
+   * **Python:** 3.11 o superior (para el backend con FastAPI)
+   * **Node.js:** v20.x o superior (para el frontend con React/Vite)
+   * **Git:** Para clonar el repositorio.
+   * **MySQL**: MySQL instalado localmente o credenciales de acceso a Railway
+   * **Navegador Web**: Recomendado Google, Rave, FireFox o Edge
 
-**Propósito del software:**  
-Optimizar los procesos bibliotecarios, reduciendo tiempos de búsqueda y registro, tanto para usuarios como para el personal administrativo.
+   ---
+  
+4. ## Preparación de Entorno
 
-**Público objetivo:**  
-El sistema está dirigido a **administradores**, encargados de la gestión de la biblioteca, y a **usuarios registrados**, quienes pueden consultar el catálogo y realizar préstamos.
+   **Instalar Python**
 
-**Convenciones usadas:**
-- **Negrita:** destaca nombres de botones o secciones.  
-- *Cursiva:* resalta opciones o acciones específicas.  
-- 🔹 **Íconos:** indican pasos o advertencias importantes.
+   **Descarga:**
+   Puedes obtener el instalador oficial desde [https://www.python.org/downloads/](https://www.python.org/downloads/).
+   *(Recuerda marcar la opción para agregar Python al PATH durante la instalación en Windows.)*
 
-**Contacto de soporte:**  
-📧 aeternum538@gmail.com  
-💬 Chat interno disponible para soporte técnico en la interfaz administrativa.
+   **Verificación (Bash):**
+   Para confirmar la instalación, ejecuta:
 
----
-
-## 💻 Requisitos del Sistema
-
-Para garantizar un funcionamiento óptimo de **Librería Aeternum**, se recomienda contar con un equipo moderno y actualizado.  
-El sistema puede ejecutarse en **Windows** y requiere una instalación previa de **Node.js** y una base de datos **MongoDB** activa.
-
-**Hardware mínimo recomendado:**
-- Procesador: Intel i3 o equivalente  
-- Memoria RAM: 4 GB  
-- Espacio en disco: 500 MB  
-
-**Hardware recomendado:**
-- Procesador: Intel i5 o superior  
-- Memoria RAM: 8 GB  
-
-**Software necesario:**
-- Navegador moderno (Google Chrome recomendado)  
-- **Git** instalado para clonar el repositorio y gestionar versiones
-
----
-
-## ⚙️ Instalación y Configuración
-
-### 🪜 Pasos de instalación
-
-1. **Clonar el repositorio del proyecto:**
    ```bash
-   git clone https://github.com/Santixxtt/Aeternum_new.git
-   cd Aeternum_new <-- Entra a la carpeta
+   python --version
+   ```
+    **Instalar Node.js**
 
-### ▶️ Ejecutar el proyecto en entorno local
-2. **Instalar tecnologias**
-   ```bash
-   npm install
-   pip install -r requerimes.txt
+    **Descarga:**
+    Puedes obtener el instalador oficial desde [https://nodejs.org/en/download](https://nodejs.org/en/download).
+
+    **Verificación (Bash):**
+    Para confirmar la instalación, ejecuta:
+
+    ```bash
+    node --v
+    ```
+    **Instalar Git**
+
+    **Descarga:**
+    Puedes obtener el instalador oficial desde [https://git-scm.com/download/](https://git-scm.com/download/).
+
+    **Verificación (Bash):**
+    Para confirmar la instalación, ejecuta:
+
+    ```bash
+    git --version
+    ```
+   
